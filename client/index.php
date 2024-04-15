@@ -2,10 +2,10 @@
 <html lang="en">                   
     <head>
         
-        <title>Dashboard - Printing Services</title>
-        
-         <!-- Sidebar -->
-         <?php include('../includes/sidebar.php'); ?>
+        <title>Client - Printing Services</title>
+
+        <!-- Sidebar -->
+        <?php include('../includes/sidebar.php'); ?>
 
         <!-- Navigation bar -->
         <?php include('../includes/topbar.php');?>
@@ -33,10 +33,35 @@
     <body >
         <div class="content">
             <div class="contain">
-                
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item active fs-4" ><a class="color-new rm-link" href="../dashboard/">Dashboard</a></li>
+                    <li class="breadcrumb-item fs-4" aria-current="page">Client</a></li>    
+                </ul>
+
+                <table id="client-table" class="table table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>ID</th>                 
+                            <th>Company</th>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>                 
+                            <th>Company</th>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>     
+                </table>
             </div>
         </div> 
     </body>
+    
     <!-- Template Javascript -->
     <script src="../js/main.js"></script>
 

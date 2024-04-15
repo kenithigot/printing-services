@@ -2,7 +2,7 @@
 <html lang="en">                   
     <head>
         
-        <title>Dashboard - Printing Services</title>
+        <title>Collectable Credits - Printing Services</title>
         
          <!-- Sidebar -->
          <?php include('../includes/sidebar.php'); ?>
@@ -33,7 +33,10 @@
     <body >
         <div class="content">
             <div class="contain">
-                
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item active fs-4"><a class="rm-link"href="../dashboard/">Dashboard</a></li>
+                    <li class="breadcrumb-item fs-4" aria-current="page">Collectable Credits</a></li>    
+                </ul>
             </div>
         </div> 
     </body>
