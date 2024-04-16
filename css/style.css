@@ -73,7 +73,6 @@
     left: 0;
     bottom: 0;
     width: 260px;
-    height: 100vh;
     overflow-y: auto;
     background: var(--secondary);
     transition: 0.5s;
@@ -82,7 +81,6 @@
 
 .content {
     margin-left: 260px;
-    min-height: 93vh;
     background: var(--dark);
     transition: 0.5s;
 }
@@ -315,4 +313,31 @@
 .rm-link{
     text-decoration: none;
     border-bottom: 2px solid blue;
+}
+
+.table>:not(:last-child)>:last-child>* {
+    text-align: left;
+    align-content: center;
+}
+
+.client-container{
+    padding-top: 30px;
+}
+
+.footer-design{
+    position: fixed; 
+    bottom: 0;
+    width: 100vw;
+    background-color: #e6e6e6;
+}
+
+.add-content{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.footer-content{
+    display: flex;
+    justify-content: space-between;
 }

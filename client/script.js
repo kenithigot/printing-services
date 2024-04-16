@@ -2,18 +2,22 @@ $(document).ready(function () {
     var table = $('#client-table').DataTable({
         "searching": true,
         "ajax": {
-            "url": "db-client.php",
-            "type": "POST"
+            "url": "db-client.php", // URL to fetch data from
+            "type": "POST" // Using POST method to fetch data
         },
-       
-    });
-
-    $('#userRoleSelect').on('change', function () {
-        var selectedRole = $(this).val();
-        if (selectedRole === 'all') {
-            table.column(3).search('').draw();
-        } else {
-            table.column(3).search(selectedRole).draw(); 
-        }
+        "columns": [ 
+            { "data": "client_name" },
+            { "data": "address" },
+            { "data": "contact_number" },
+            { "data": "email" },
+            { 
+                "data": null,
+                "render": function (data, type, row) {
+                    return '<button class="btn btn-primary role-btn">Edit</button>' +
+                        '<button class="btn btn-danger role-btn ms-2">Delete</button>';
+                }
+            }
+        ]
     });
 });
+
