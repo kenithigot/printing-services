@@ -315,29 +315,39 @@
     border-bottom: 2px solid blue;
 }
 
-.table>:not(:last-child)>:last-child>* {
-    text-align: left;
-    align-content: center;
-}
-
 .client-container{
     padding-top: 30px;
 }
 
 .footer-design{
-    position: fixed; 
-    bottom: 0;
-    width: 100vw;
+    margin-top: auto;
     background-color: #e6e6e6;
+    padding: 10px 0 10px 0;
 }
 
-.add-content{
-    content: "";
-    display: table;
-    clear: both;
+.container-now{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .footer-content{
     display: flex;
     justify-content: space-between;
+}
+
+.blank-space{
+    padding-top:100px;
+}
+
+table.table.dataTable.table-striped > tbody > tr:nth-of-type(2n+1) > * {
+    text-align: left;
+}
+
+.table.dataTable td.dt-type-numeric{
+    text-align: left;
+}
+
+.table>:not(:last-child)>:last-child>* {
+    text-align: left;
 }
