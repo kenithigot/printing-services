@@ -30,9 +30,6 @@
     <?php include('add_client.php');?>
 </head>
 
-<style>
-    
-</style>
 <body>
     <div class="content">
         <div class="container-now">
@@ -41,7 +38,7 @@
                 <li class="breadcrumb-item active fs-4"><a class="color-new rm-link" href="../dashboard/">Dashboard</a></li>
                 <li class="breadcrumb-item fs-4" aria-current="page">Client</li>    
             </ul>
-            <div class="client-container">
+            <div class="added-container">
                 <button id="add-client-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#client-modal">Add New Client</button>
                 <hr>
                 <table id="client-table" class="table table-striped" style="width:100%">
