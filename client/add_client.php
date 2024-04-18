@@ -15,12 +15,14 @@
         // Execute the statement
         if ($stmt->execute() === TRUE) {
             echo "<script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: 'New record created successfully',
+            Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'New record created successfully',
+                    }).then(() => {
+                        window.location.href = '../client/';
                     });
-                </script>";
+            </script>";
         } else {
             echo "Error: " . $stmt->error;
         }

@@ -60,7 +60,7 @@
                 <div class="modal fade" id="client-modal" tabindex="-1" aria-labelledby="clientModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form method="POST">
+                            <form method="POST" >
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="clientModalLabel">Add Client</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -97,7 +97,6 @@
                 </div>
                 <!-- End of Add Client Modal -->
 
-
                 <!-- Edit Client Modal -->
                 <div class="modal fade" id="edit-client" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -132,8 +131,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary" id="updateClient">Save changes</button>
-                            </div>
-                           
+                            </div>    
                         </div>       
                     </div>
                 </div>
