@@ -7,6 +7,7 @@
         $orderStatus = $_POST["add-orderStatus"];
         // Check if the POST variables are set before accessing them
         $typePrintEmbro = isset($_POST["add-typePrintEmbro"]) ? $_POST["add-typePrintEmbro"] : '';
+        // Provide a default value for typeShirt
         $typeShirt = isset($_POST["add-typeShirt"]) ? $_POST["add-typeShirt"] : '';
         $typeShirtOther = isset($_POST["add-typeShirtOther"]) ? $_POST["add-typeShirtOther"] : '';
         $typeCloth = isset($_POST["add-typeCloth"]) ? $_POST["add-typeCloth"] : '';
@@ -23,7 +24,7 @@
             Swal.fire({
                     icon: 'success',
                     title: 'Success',
-                    text: 'New record created successfully',
+                    text: 'New Task created successfully',
                     }).then(() => {
                         window.location.href = '../job-order/';
                     });

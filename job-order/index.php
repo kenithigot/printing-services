@@ -9,15 +9,14 @@
     <!-- Navigation bar -->
     <?php include('../includes/topbar.php');?>
 
-   
+    <!-- Loading bar -->
+    <?php include('../spinner.php');?>
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
-
-   
 
     <!-- DataTables Bootstrap 5 Stylesheet -->
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css">
@@ -34,22 +33,7 @@
     
     <?php include('add_jobOrder.php');?>
 </head>
-<style>
-        .truncate-text {
-            display: inline-block;
-            width: 100px; /* Adjust width as needed */
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            cursor: pointer;
-            text-decoration: underline;
-        }
 
-        .orderStatusBtn{
-            cursor: default;
-    pointer-events: none;
-        }
-    </style>
 <body>
     <div class="content">
         <div class="container-now">
@@ -64,9 +48,9 @@
                     <table id="jobOrder-table" class="table table-striped display" width="100%">
                         <thead>
                             <tr>
-                                <th>Staff</th>    
-                                <th>Job Role</th>             
-                                <th>Task</th>
+                                <th>Task</th>    
+                                <th>Staff Name</th>             
+                                <th>Job Role</th>
                                 <th>Due Date</th>
                                 <th>Image/Picture Link</th>
                                 <th>Status</th> 
@@ -124,6 +108,15 @@
                                                 </select>
                                             </div>
                                             <div class="mb-3">
+                                                <label for="add-typeCloth" class="form-label">Type of Cloths:<span style="color:red">&nbsp*</span></label>
+                                                <select class="form-control" id="add-typeCloth" name="add-typeCloth" >
+                                                    <option value="" selected disabled>Select the type of Cloth</option>
+                                                    <option value="Dryfit">Dryfit</option>
+                                                    <option value="Active">Active</option>
+                                                    <option value="Cotton">Cotton</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
                                                 <label for="add-typeShirt" class="form-label">Type of Shirt:<span style="color:red">&nbsp*</span></label>
                                                 <select class="form-control" id="add-typeShirt" name="add-typeShirt" onchange="toggleOtherInput()" >
                                                     <option value="" selected disabled>Select the type of Shirt</option>
@@ -140,15 +133,7 @@
                                                 <label for="add-typeShirtOther" class="form-label">Applicable for Type of Shirt [Other]:<span style="color:red">&nbsp*</span></label>
                                                 <input type="text" class="form-control" id="add-typeShirtOther" name="add-typeShirtOther">
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="add-typeCloth" class="form-label">Type of Cloth:<span style="color:red">&nbsp*</span></label>
-                                                <select class="form-control" id="add-typeCloth" name="add-typeCloth" required>
-                                                    <option value="" selected disabled>Select the type of Cloth</option>
-                                                    <option value="Dryfit">Dryfit</option>
-                                                    <option value="Active">Active</option>
-                                                    <option value="Cotton">Cotton</option>
-                                                </select>
-                                            </div>
+                                            
                                         </div>
                                         <div class="mb-3">
                                             <label for="add-imagePictureLink" class="form-label">Image/Picture Link:<span style="color:red">&nbsp*</span></label>
@@ -178,19 +163,70 @@
                         </div>
                     </div>
                     <!-- End of Add Task Modal -->
-                    
-                    <!-- Edit Task Modal -->
-                    <div class="modal fade" id="editJobOrder" tabindex="-1" aria-labelledby="editJobOrderLabel" aria-hidden="true">
+
+                    <!-- View Task Modal -->
+                    <div class="modal fade bd-example-modal-xl" id="viewJobOrder-modal" tabindex="-1" aria-labelledby="viewJobOrderModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <form method="POST">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="editJobOrderLabel">Add To do Task</h5>
+                                        <h5 class="modal-title" id="viewJobOrderModalLabel">View Task</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body">  
+                                    <div class="modal-body">
+                                        <input type="hidden" name="id" class="id">
+                                        <div class="form-inline">
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <label class="custom-control-label fs-5 px-2 fw-bold" for="view-jobRole">Job Role:<span style="color:red">&nbsp*</span></label>   
+                                                <label class="custom-control-label fs-5" id="view-jobRole" name="view-jobRole"></label>   
+                                            </div>
+                                            <br>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <label class="custom-control-label fs-5 px-2 fw-bold"style="text-decoration:underline">Task Details:</label>   
+                                                
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <label class="custom-control-label fs-5 px-2 fw-bold" for="view-typePrintEmbro">Type of Print/Embro:<span style="color:red">&nbsp*</span></label>   
+                                                <label class="custom-control-label fs-5" id="view-typePrintEmbro" name="view-typePrintEmbro"></label>   
+                                            </div>
+                                            
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <label class="custom-control-label fs-5 px-2  fw-bold" for="view-typeShirt">Type of Shirt:<span style="color:red">&nbsp*</span></label>   
+                                                <label class="custom-control-label fs-5" id="view-typeShirt" name="view-typeShirt"></label>   
+                                            </div>
+                                            
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <label class="custom-control-label fs-5 px-2  fw-bold" for="view-typeShirtOther">Type of Shirt[Other]:<span style="color:red">&nbsp*</span></label>   
+                                                <label class="custom-control-label fs-5" id="view-typeShirtOther" name="view-typeShirtOther"></label>   
+                                            </div>
+                                            
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <label class="custom-control-label fs-5 px-2  fw-bold" for="view-typeCloth">Type of Cloth:<span style="color:red">&nbsp*</span></label>   
+                                                <label class="custom-control-label fs-5" id="view-typeCloth" name="view-typeCloth"></label>   
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </form>
+                            </div>       
+                        </div>
+                    </div>
+                    <!-- End of View Task Modal -->
+                    
+                    <!-- Edit Task Modal -->
+                    <div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="editjobOrderModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form method="POST">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editjobOrderModalLabel">Edit Task</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="hidden" id="id" name="id" value="">
                                         <div class="mb-3">
-                                            <label for="add-staffName" class="form-label">Staff Name:<span style="color:red">&nbsp*</span></label>
+                                            <label for="staffName" class="form-label">Staff Name:<span style="color:red">&nbsp*</span></label>
                                             <select class="form-control" id="staffName" name="staffName" required>
                                                 <option value="" selected disabled>Select Staff</option>
                                                 <option value="Kid Eumil T. Suco">Kid Eumil T. Suco</option>
@@ -200,38 +236,86 @@
                                             </select>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="add-jobRole" class="form-label">Job Role:<span style="color:red">&nbsp*</span></label>
-                                            <select class="form-control" id="jobRole" name="jobRole" required>
+                                            <label for="jobRole" class="form-label">Job Role:<span style="color:red">&nbsp*</span></label>
+                                            <select class="form-control" id="jobRole" name="jobRole" onchange="toggleInputs()">
                                                 <option value="" selected disabled>Select Job Role</option>
-                                                <option value="Manager">Manager</option>
-                                                <option value="Accounting">Accounting</option>
-                                                <option value="Assistant">Assistant</option>
-                                                <option value="Tarp maker/designer">Tarp maker/designer</option>
-                                                <option value="Printing documents">Printing documents</option>
+                                                <option value="Plate Number">Plate Number</option>
+                                                <option value="Tarpaulin">Tarpaulin</option>
+                                                <option value="T-shirt Printing">T-shirt Printing</option>
+                                                <option value="Fullsublimation">Fullsublimation</option>
+                                                <option value="Sentra board">Sentra board </option>
+                                                <option value="standee">standee</option>
+                                                <option value="Mug printing">Mug printing</option>
+                                                <option value="School ID">School ID</option>
+                                                <option value="Sticker">Sticker</option>
                                             </select>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="add-taskDescription" class="form-label">Task Description:<span style="color:red">&nbsp*</span></label>
-                                            <textarea class="form-control" placeholder="Describe task here" id="taskDescription" name="taskDescription" required></textarea>
+                                            <label for="typePrintEmbro" class="form-label">Type of Print/Embro:<span style="color:red">&nbsp*</span></label>
+                                            <select class="form-control" id="typePrintEmbro" name="typePrintEmbro" >
+                                                <option value="" selected disabled>Select the type of Print/Embro</option>
+                                                <option value="Manual Screen Printing">Manual Screen Printing</option>
+                                                <option value="Digital Embroidery">Digital Embroidery</option>
+                                                <option value="Digital Print - DTF">Digital Print - DTF</option>
+                                                <option value="Digital Print - Vinyl">Digital Print - Vinyl</option>
+                                                <option value="Digital Print Sublimation">Digital Print Sublimation</option>
+                                                <option value="Full Sublimation">Full Sublimation</option>
+                                            </select>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="add-dateDeadline" class="form-label">Due Date:<span style="color:red">&nbsp*</span></label>
-                                            <input type="text" class="form-control" id="add-dateDeadline" name="add-dateDeadline" placeholder="Select Due Date" required>
+                                            <label for="typeCloth" class="form-label">Type of Cloths:<span style="color:red">&nbsp*</span></label>
+                                            <select class="form-control" id="typeCloth" name="typeCloth" >
+                                                <option value="" selected disabled>Select the type of Cloth</option>
+                                                <option value="Dryfit">Dryfit</option>
+                                                <option value="Active">Active</option>
+                                                <option value="Cotton">Cotton</option>
+                                            </select>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="add-imagePictureLink" class="form-label">Image/Picture Link:<span style="color:red">&nbsp*</span></label>
-                                            <input type="text" class="form-control" id="add-imagePictureLink" name="add-imagePictureLink" required>
-                                        </div>                     
+                                            <label for="typeShirt" class="form-label">Type of Shirt:<span style="color:red">&nbsp*</span></label>
+                                            <select class="form-control" id="typeShirt" name="typeShirt">
+                                                <option value="" selected disabled>Select the type of Shirt</option>
+                                                <option value="Customized Full Sublimation">Customized Full Sublimation</option>
+                                                <option value="Jersey">Jersey</option>
+                                                <option value="T-Shirt">T-Shirt</option>
+                                                <option value="Polo Shirt">Polo Shirt</option>
+                                                <option value="V-Neck">V-Neck</option>
+                                                <option value="Long Sleeve">Long Sleeve</option>
+                                                <option value="Other">Other</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="typeShirtOther" class="form-label">Applicable for Type of Shirt [Other]:<span style="color:red">&nbsp*</span></label>
+                                            <input type="text" class="form-control" id="typeShirtOther" name="typeShirtOther">
+                                        </div> 
+                                        <div class="mb-3">
+                                            <label for="imagePictureLink" class="form-label">Image/Picture Link:<span style="color:red">&nbsp*</span></label>
+                                            <input type="text" class="form-control" id="imagePictureLink" name="imagePictureLink">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="dateDeadline" class="form-label">Due Date:<span style="color:red">&nbsp*</span></label>
+                                            <input type="text" class="form-control" id="dateDeadline" name="dateDeadline" placeholder="Select Due Date">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="orderStatus" class="form-label">Order Status:<span style="color:red">&nbsp*</span></label>
+                                            <select class="form-control" id="orderStatus" name="orderStatus">
+                                                <option value="" selected disabled>Select Order Status</option>
+                                                <option value="Started">Started</option>
+                                                <option value="Not yet started">Not yet started</option>
+                                                <option value="Ongoing">Ongoing</option>
+                                                <option value="Completed">Completed</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary" name="saveJobOrder">Save changes</button>
+                                        <button type="submit" class="btn btn-primary" id="saveTaskOrder">Save changes</button>
                                     </div>
                                 </form>
                             </div>       
                         </div>
                     </div>
-                    <!-- End of Edit Task Modal -->  
+                    <!-- End of Edit Task Modal --> 
 
                 </div>
             </div>

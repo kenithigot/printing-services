@@ -342,12 +342,30 @@
 
 table.table.dataTable.table-striped > tbody > tr:nth-of-type(2n+1) > * {
     text-align: left;
+    align-content: center;
 }
 
 .table.dataTable td.dt-type-numeric{
     text-align: left;
+    align-content: center;
 }
 
 .table>:not(:last-child)>:last-child>* {
     text-align: left;
+    align-content: center;
+}
+
+.truncate-text {
+    display: inline-block;
+    width: 160px; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.orderStatusBtn{
+    cursor: default;
+    pointer-events: none;
 }
