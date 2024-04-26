@@ -6,7 +6,7 @@
         $id = $_POST["id"];
 
         // Prepare the SQL statement
-        $stmt = $conn->prepare("DELETE FROM ktees_joborder WHERE id = ?");
+        $stmt = $conn->prepare("DELETE FROM ktees_order WHERE id = ?");
 
         $stmt->bind_param("i", $id);
 

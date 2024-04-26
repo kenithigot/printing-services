@@ -3,7 +3,7 @@
     include('../authentication.php');
 
     // Fetch data from the database table
-    $sql = "SELECT * FROM ktees_joborder"; 
+    $sql = "SELECT * FROM ktees_order"; 
     $result = $conn->query($sql);
 
     $data = array();

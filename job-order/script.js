@@ -6,54 +6,19 @@ $(document).ready(function () {
             "type": "POST"
         },
         "columns": [
-            {
-                "data": null,
-                "render": function (data, type, row) {
-                    return '<button class="btn btn-primary editJoborderBtn" data-bs-toggle="modal" data-bs-target="#viewJobOrder-modal" data-id="' + row.id + '">View</button>' 
-                        
-                }
-            },
-            { "data": "staffName" },
-            { "data": "jobRole" },
-            { "data": "dateDeadline" },
+            { "data": "staff" },
+            { "data": "type_order" },
             {
                 "data": "imagePictureLink",
                 "render": function (data, type, row) {
-                    var truncatedText = data.length > 30 ? data.substr(0, 30) + '...' : data;
+                    var truncatedText = data.length > 50 ? data.substr(0, 50) + '...' : data;
                     return '<span class="truncate-text" data-fulltext="' + data + '" title="' + data + '">' + truncatedText + '</span>';
                 }
             },
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    var buttonClass = '';
-                    var buttonText = '';
-                    switch (row.orderStatus) {
-                        case 'Started':
-                            buttonClass = 'fw-bold';
-                            buttonText = 'Started';
-                            break;
-                        case 'Not yet started':
-                            buttonClass = 'fw-bold';
-                            buttonText = 'Not started';
-                            break;
-                        case 'Ongoing':
-                            buttonClass = 'fw-bold';
-                            buttonText = 'Ongoing';
-                            break;
-                        case 'Completed':
-                            buttonClass = 'fw-bold';
-                            buttonText = 'Completed';
-                            break;
-                    }
-                    return '<button class="btn ' + buttonClass + ' orderStatusBtn" data-id="' + row.id + '">' + buttonText + '</button>';
-                }
-            },
-            {
-                "data": null,
-                "render": function (data, type, row) {
-                    return '<button type="button" class="btn btn-primary editTaskBtn" data-bs-toggle="modal" data-bs-target="#editTaskModal" data-id="' + row.id + '">Edit</button>' +
-                           '<button class="btn btn-success ms-2 doneTaskBtn" data-id="' + row.id + '">Done Task</button>';
+                    return '<button type="button" class="btn btn-primary editTaskBtn" data-bs-toggle="modal" data-bs-target="#editTaskModal" data-id="' + row.id + '">Edit</button>';            
                 }
             }
         ],
@@ -74,61 +39,61 @@ $(document).ready(function () {
         });
     });
 
-    // View Task of Job Order
-$(document).on('click', '.editJoborderBtn', function (e) {
-    e.preventDefault();
-    var id = $(this).data('id');
+//     // View Task of Job Order
+// $(document).on('click', '.editJoborderBtn', function (e) {
+//     e.preventDefault();
+//     var id = $(this).data('id');
 
-    $.ajax({
-        url: 'selectJobOrder.php',
-        type: 'POST',
-        data: { id: id },
-        dataType: 'json',
-        success: function (response) {
-            if (response) {
-                // Populate the labels with data
-                $('#view-jobRole').text(response.jobRole);
-                $('#view-typePrintEmbro').text(response.typePrintEmbro);
-                $('#view-typeShirt').text(response.typeShirt);
-                $('#view-typeShirtOther').text(response.typeShirtOther);
-                $('#view-typeCloth').text(response.typeCloth);
+//     $.ajax({
+//         url: 'selectJobOrder.php',
+//         type: 'POST',
+//         data: { id: id },
+//         dataType: 'json',
+//         success: function (response) {
+//             if (response) {
+//                 // Populate the labels with data
+//                 $('#view-jobRole').text(response.jobRole);
+//                 $('#view-typePrintEmbro').text(response.typePrintEmbro);
+//                 $('#view-typeShirt').text(response.typeShirt);
+//                 $('#view-typeShirtOther').text(response.typeShirtOther);
+//                 $('#view-typeCloth').text(response.typeCloth);
 
-                // Show the modal
-                $('#viewJobOrder-modal').modal('show');
+//                 // Show the modal
+//                 $('#viewJobOrder-modal').modal('show');
 
-               // Hide labels if no data available
-                if (!response.jobRole) {
-                    $('#view-jobRole').parent().hide();
-                } else {
-                    $('#view-jobRole').parent().show();
-                    if (response.jobRole !== 'T-shirt Printing') {
-                        $('#view-typePrintEmbro').parent().hide();
-                        $('#view-typeShirt').parent().hide();
-                        $('#view-typeShirtOther').parent().hide();
-                        $('#view-typeCloth').parent().hide();
-                    } else {
-                        if (!response.typePrintEmbro) $('#view-typePrintEmbro').parent().hide();
-                        else $('#view-typePrintEmbro').parent().show();
+//                // Hide labels if no data available
+//                 if (!response.jobRole) {
+//                     $('#view-jobRole').parent().hide();
+//                 } else {
+//                     $('#view-jobRole').parent().show();
+//                     if (response.jobRole !== 'T-shirt Printing') {
+//                         $('#view-typePrintEmbro').parent().hide();
+//                         $('#view-typeShirt').parent().hide();
+//                         $('#view-typeShirtOther').parent().hide();
+//                         $('#view-typeCloth').parent().hide();
+//                     } else {
+//                         if (!response.typePrintEmbro) $('#view-typePrintEmbro').parent().hide();
+//                         else $('#view-typePrintEmbro').parent().show();
 
-                        if (!response.typeShirt) $('#view-typeShirt').parent().hide();
-                        else $('#view-typeShirt').parent().show();
+//                         if (!response.typeShirt) $('#view-typeShirt').parent().hide();
+//                         else $('#view-typeShirt').parent().show();
 
-                        if (!response.typeShirtOther) $('#view-typeShirtOther').parent().hide();
-                        else $('#view-typeShirtOther').parent().show();
+//                         if (!response.typeShirtOther) $('#view-typeShirtOther').parent().hide();
+//                         else $('#view-typeShirtOther').parent().show();
 
-                        if (!response.typeCloth) $('#view-typeCloth').parent().hide();
-                        else $('#view-typeCloth').parent().show();
-                    }
-                }
-            } else {
-                console.error("No data available for any label.");
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error(xhr.responseText);
-        }
-    });
-});
+//                         if (!response.typeCloth) $('#view-typeCloth').parent().hide();
+//                         else $('#view-typeCloth').parent().show();
+//                     }
+//                 }
+//             } else {
+//                 console.error("No data available for any label.");
+//             }
+//         },
+//         error: function(xhr, status, error) {
+//             console.error(xhr.responseText);
+//         }
+//     });
+// });
 
   
     //Edit Task Order
@@ -142,35 +107,37 @@ $(document).on('click', '.editJoborderBtn', function (e) {
             data: {id:id },
             dataType: 'json',
             success: function (response) {
-                $('#staffName').val(response.staffName); 
-                $('#jobRole').val(response.jobRole);
-                $('#typePrintEmbro').val(response.typePrintEmbro);
-                $('#typeCloth').val(response.typeCloth);
-                $('#typeShirt').val(response.typeShirt);
-                $('#typeShirtOther').val(response.typeShirtOther);
+
+                $('#staffName').val(response.staff); 
                 $('#imagePictureLink').val(response.imagePictureLink);
-                $('#dateDeadline').val(response.dateDeadline);
-                $('#orderStatus').val(response.orderStatus);
+                // $('#jobRole').val(response.jobRole);
+                // $('#typePrintEmbro').val(response.typePrintEmbro);
+                // $('#typeCloth').val(response.typeCloth);
+                // $('#typeShirt').val(response.typeShirt);
+                // $('#typeShirtOther').val(response.typeShirtOther);
+                
+                // $('#dateDeadline').val(response.dateDeadline);
+                // $('#orderStatus').val(response.orderStatus);
     
                 // Show or hide related fields based on job role
-                if (response.jobRole === 'T-shirt Printing') {
-                    $('#typePrintEmbro, #typeCloth, #typeShirt').show();
-                    // Show the labels
-                    $('label[for="typePrintEmbro"], label[for="typeCloth"], label[for="typeShirt"] ').show();
-                } else {
-                    $('#typePrintEmbro, #typeCloth, #typeShirt').hide();
-                    // Hide the labels
-                    $('label[for="typePrintEmbro"], label[for="typeCloth"], label[for="typeShirt"]').hide();
-                }
+                // if (response.jobRole === 'T-shirt Printing') {
+                //     $('#typePrintEmbro, #typeCloth, #typeShirt').show();
+                //     // Show the labels
+                //     $('label[for="typePrintEmbro"], label[for="typeCloth"], label[for="typeShirt"] ').show();
+                // } else {
+                //     $('#typePrintEmbro, #typeCloth, #typeShirt').hide();
+                //     // Hide the labels
+                //     $('label[for="typePrintEmbro"], label[for="typeCloth"], label[for="typeShirt"]').hide();
+                // }
 
-                // Show or hide "Applicable for Type of Shirt [Other]" input based on "Type of Shirt" select
-                if (response.typeShirt === 'Other') {
-                    $('#typeShirtOther').show();
-                    $('label[for="typeShirtOther"]').show();
-                } else {
-                    $('#typeShirtOther').hide();
-                    $('label[for="typeShirtOther"]').hide();
-                }
+                // // Show or hide "Applicable for Type of Shirt [Other]" input based on "Type of Shirt" select
+                // if (response.typeShirt === 'Other') {
+                //     $('#typeShirtOther').show();
+                //     $('label[for="typeShirtOther"]').show();
+                // } else {
+                //     $('#typeShirtOther').hide();
+                //     $('label[for="typeShirtOther"]').hide();
+                // }
     
                 $('#editTaskModal').modal('show');
     
@@ -189,14 +156,14 @@ $(document).on('click', '.editJoborderBtn', function (e) {
             var OrderData = {
                 id: id,
                 staffName: $('#staffName').val(),
-                jobRole: $('#jobRole').val(),
-                typePrintEmbro: $('#typePrintEmbro').val(),
-                typeCloth: $('#typeCloth').val(),
-                typeShirt: $('#typeShirt').val(),
-                typeShirtOther: $('#typeShirtOther').val(),
                 imagePictureLink: $('#imagePictureLink').val(),
-                dateDeadline: $('#dateDeadline').val(),
-                orderStatus: $('#orderStatus').val()
+                // jobRole: $('#jobRole').val(),
+                // typePrintEmbro: $('#typePrintEmbro').val(),
+                // typeCloth: $('#typeCloth').val(),
+                // typeShirt: $('#typeShirt').val(),
+                // typeShirtOther: $('#typeShirtOther').val(),
+                // dateDeadline: $('#dateDeadline').val(),
+                // orderStatus: $('#orderStatus').val()
             };
 
             $.ajax({

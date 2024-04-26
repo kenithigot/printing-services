@@ -5,7 +5,7 @@
         $id = $_POST["id"];
 
         // Prepare and execute the SQL query
-        $sql = "SELECT id, client_name, clientAddress, contactNum, fb_account, email FROM ktees_client WHERE id = ?";
+        $sql = "SELECT * FROM ktees_order WHERE id = ?";
         $selectStmt = $conn->prepare($sql);
         $selectStmt->bind_param("i", $id);
         $selectStmt->execute();

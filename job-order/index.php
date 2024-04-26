@@ -31,7 +31,6 @@
     <!-- SweetAlert2 Library -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     
-    <?php include('add_jobOrder.php');?>
 </head>
 
 <body>
@@ -43,23 +42,19 @@
                     <li class="breadcrumb-item fs-4" aria-current="page">Job Order</li>    
                 </ul>
                 <div class="added-container">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#jobOrder-modal">Add Task</button>
                     <hr>
                     <table id="jobOrder-table" class="table table-striped display" width="100%">
                         <thead>
-                            <tr>
-                                <th>Task</th>    
+                            <tr>  
                                 <th>Staff Name</th>             
                                 <th>Job Role</th>
-                                <th>Due Date</th>
                                 <th>Image/Picture Link</th>
-                                <th>Status</th> 
                                 <th>Action</th>
                             </tr>
                         </thead>
                     </table>
 
-                    <!-- Add Task Modal -->
+                     <!-- Add Task Modal 
                     <div class="modal fade" id="jobOrder-modal" tabindex="-1" aria-labelledby="jobOrderModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -162,9 +157,9 @@
                             </div>       
                         </div>
                     </div>
-                    <!-- End of Add Task Modal -->
+                    End of Add Task Modal  -->
 
-                    <!-- View Task Modal -->
+                <!-- View Task Modal
                     <div class="modal fade bd-example-modal-xl" id="viewJobOrder-modal" tabindex="-1" aria-labelledby="viewJobOrderModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -212,7 +207,7 @@
                             </div>       
                         </div>
                     </div>
-                    <!-- End of View Task Modal -->
+                     End of View Task Modal  -->
                     
                     <!-- Edit Task Modal -->
                     <div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="editjobOrderModalLabel" aria-hidden="true">
@@ -235,7 +230,7 @@
                                                 <option value="Rolannie R. Suco">Rolannie R. Suco</option>
                                             </select>
                                         </div>
-                                        <div class="mb-3">
+                                        <!-- <div class="mb-3">
                                             <label for="jobRole" class="form-label">Job Role:<span style="color:red">&nbsp*</span></label>
                                             <select class="form-control" id="jobRole" name="jobRole" onchange="toggleInputs()">
                                                 <option value="" selected disabled>Select Job Role</option>
@@ -287,12 +282,12 @@
                                         <div class="mb-3">
                                             <label for="typeShirtOther" class="form-label">Applicable for Type of Shirt [Other]:<span style="color:red">&nbsp*</span></label>
                                             <input type="text" class="form-control" id="typeShirtOther" name="typeShirtOther">
-                                        </div> 
+                                        </div>  -->
                                         <div class="mb-3">
                                             <label for="imagePictureLink" class="form-label">Image/Picture Link:<span style="color:red">&nbsp*</span></label>
                                             <input type="text" class="form-control" id="imagePictureLink" name="imagePictureLink">
                                         </div>
-                                        <div class="mb-3">
+                                        <!-- <div class="mb-3">
                                             <label for="dateDeadline" class="form-label">Due Date:<span style="color:red">&nbsp*</span></label>
                                             <input type="text" class="form-control" id="dateDeadline" name="dateDeadline" placeholder="Select Due Date">
                                         </div>
@@ -305,7 +300,7 @@
                                                 <option value="Ongoing">Ongoing</option>
                                                 <option value="Completed">Completed</option>
                                             </select>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

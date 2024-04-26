@@ -9,7 +9,7 @@
         <div class="navbar-nav w-100 ">
             <a href="../dashboard/" class="nav-item nav-link text-dark fw-bolder"><i class="bi bi-speedometer me-1"></i>Dashboard</a>
             <a href="../collectable-credits/" class="nav-item nav-link text-dark fw-bolder"><i class="bi bi-credit-card me-1"></i>Collectable Credits</a>
-            <a href="../booking/" class="nav-item nav-link text-dark fw-bolder"><i class="bi bi-book-fill me-1"></i>Order</a>
+            <a href="../order/" class="nav-item nav-link text-dark fw-bolder"><i class="bi bi-book-fill me-1"></i>Order</a>
             <a href="../expenses/" class="nav-item nav-link text-dark fw-bolder"><i class="bi bi-receipt me-1"></i>Daily Express</a>
             <a href="../job-order/" class="nav-item nav-link text-dark fw-bolder"><i class="fa fa-list me-1"></i> Job Order</a>
             <a href="../inventory/" class="nav-item nav-link text-dark fw-bolder"><i class="fa fa-users me-1"></i> Inventory</a>

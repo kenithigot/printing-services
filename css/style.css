@@ -355,9 +355,14 @@ table.table.dataTable.table-striped > tbody > tr:nth-of-type(2n+1) > * {
     align-content: center;
 }
 
+.table.table.dataTable > :not(caption) > * > * {
+    text-align: left;
+    align-content: center;
+}
+
 .truncate-text {
     display: inline-block;
-    width: 160px; 
+    width: 200px; 
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -368,4 +373,8 @@ table.table.dataTable.table-striped > tbody > tr:nth-of-type(2n+1) > * {
 .orderStatusBtn{
     cursor: default;
     pointer-events: none;
+}
+
+.border-label{
+    border-bottom:1px solid black;
 }

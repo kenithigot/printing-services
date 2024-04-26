@@ -5,7 +5,7 @@
         $id = $_POST["id"];
 
         // Prepare and execute the SQL query
-        $sql = "SELECT * FROM ktees_joborder WHERE id = ?";
+        $sql = "SELECT * FROM ktees_order WHERE id = ?";
         $selectStmt = $conn->prepare($sql);
         $selectStmt->bind_param("i", $id);
         $selectStmt->execute();

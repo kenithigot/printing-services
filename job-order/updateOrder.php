@@ -6,10 +6,10 @@ if (isset($_POST["id"])) {
     $id = $_POST["id"];
 
     // Prepare the SQL statement
-    $stmt = $conn->prepare("UPDATE ktees_joborder SET staffName = ?, jobRole = ?, typePrintEmbro = ?, typeShirt = ?, typeShirtOther = ?, typeCloth = ?, dateDeadline = ?, imagePictureLink = ?, orderStatus = ? WHERE id = ?");
+    $stmt = $conn->prepare("UPDATE ktees_order SET staff = ?, imagePictureLink = ? WHERE id = ?");
 
     // Bind parameters to the prepared statement
-    $stmt->bind_param("sssssssssi", $_POST['staffName'], $_POST['jobRole'], $_POST['typePrintEmbro'], $_POST['typeShirt'], $_POST['typeShirtOther'], $_POST['typeCloth'], $_POST['dateDeadline'], $_POST['imagePictureLink'], $_POST['orderStatus'], $id);
+    $stmt->bind_param("ssi", $_POST['staffName'], $_POST['imagePictureLink'], $id);
 
     // Execute the prepared statement
     if ($stmt->execute()) {
