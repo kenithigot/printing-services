@@ -1,54 +1,16 @@
 $(document).ready(function () {
-    var table = $('#jobOrder-table').DataTable({
+    var table = $('#credits-table').DataTable({
         "searching": true,
         "ajax": {
-            "url": "db-jobOrder.php",
+            "url": "db-collectable_credits.php",
             "type": "POST"
         },
         "columns": [
-            {
-                "data": null,
-                "render": function (data, type, row) {
-                    return '<button class="btn btn-primary editJoborderBtn" data-bs-toggle="modal" data-bs-target="#viewJobOrder-modal" data-id="' + row.id + '">View</button>' 
-                        
-                }
-            },
-            { "data": "staffName" },
-            { "data": "jobRole" },
-            { "data": "dateDeadline" },
-            {
-                "data": "imagePictureLink",
-                "render": function (data, type, row) {
-                    var truncatedText = data.length > 30 ? data.substr(0, 30) + '...' : data;
-                    return '<span class="truncate-text" data-fulltext="' + data + '" title="' + data + '">' + truncatedText + '</span>';
-                }
-            },
-            {
-                "data": null,
-                "render": function (data, type, row) {
-                    var buttonClass = '';
-                    var buttonText = '';
-                    switch (row.orderStatus) {
-                        case 'Started':
-                            buttonClass = 'fw-bold';
-                            buttonText = 'Started';
-                            break;
-                        case 'Not yet started':
-                            buttonClass = 'fw-bold';
-                            buttonText = 'Not started';
-                            break;
-                        case 'Ongoing':
-                            buttonClass = 'fw-bold';
-                            buttonText = 'Ongoing';
-                            break;
-                        case 'Completed':
-                            buttonClass = 'fw-bold';
-                            buttonText = 'Completed';
-                            break;
-                    }
-                    return '<button class="btn ' + buttonClass + ' orderStatusBtn" data-id="' + row.id + '">' + buttonText + '</button>';
-                }
-            },
+            { "data": "id" }, // Assuming the ID field is in the first column
+            { "data": "item" },
+            { "data": "quantity" },
+            { "data": "date" },
+            { "data": "price" },
             {
                 "data": null,
                 "render": function (data, type, row) {
@@ -57,10 +19,39 @@ $(document).ready(function () {
                 }
             }
         ],
-           
-        "order": [[0, 'asc']]
+        "order": [[0, 'desc']] // Order by ID in descending order
     });
 
+
+
+
+
+   // Add Order button click event handler
+   $('#add-credits-btn').on('click', function () {
+    // Clear DataTable before adding new data
+    table.clear().draw();
+
+    // Extract data from modal form fields
+    var item = $('#add-item').val();
+    var quantity = $('#add-quantity').val();
+    var date = $('#add-date').val();
+    var price = $('#add-price').val();
+
+    // Add new item to DataTable
+    var newItem = {
+        "item": item,
+        "quantity": quantity,
+        "date": date,
+        "price": price
+    };
+    table.row.add(newItem).draw(false);
+});
+
+// Reset button click event handler
+$('#resetTableBtn').on('click', function () {
+    // Clear DataTable
+    table.clear().draw();
+});
 });
     
 function toggleInputs() {

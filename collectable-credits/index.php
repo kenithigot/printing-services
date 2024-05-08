@@ -27,7 +27,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     
-    <!-- <?php include('add_expenses.php');?> -->
+    <!-- <?php include('add_collectable_credits.php');?> -->
 </head>
 
 <body>
@@ -39,13 +39,15 @@
                 <li class="breadcrumb-item fs-4" aria-current="page">Collectable Credits</li>    
             </ul>
             <div class="added-container">
-                <button id="add-expenses-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#expenses-modal">Add Order</button>
+                <button id="add-credits-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#credits-modal">Add Order</button>
+                <button id="resetTableBtn" class="btn btn-secondary">Reset Table</button>
                 <hr>
-                <table id="expenses-table" class="table table-striped" style="width:100%">
+                <table id="credits-table" class="table table-striped" style="width:100%">
                     <thead>
                         <tr>
                             <th>Item</th>                 
                             <th>Quantity</th>
+                            <th>Date</th>
                             <th>Price</th>
                             <th>Action</th>
                         </tr>
@@ -53,12 +55,12 @@
                 </table>
 
                 <!-- Add Client Modal -->
-                <div class="modal fade" id="expenses-modal" tabindex="-1" aria-labelledby="expensesModalLabel" aria-hidden="true">
+                <div class="modal fade" id="credits-modal" tabindex="-1" aria-labelledby="creditsModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <form method="POST" >
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="expensesModalLabel">Add Order</h5>
+                                    <h5 class="modal-title" id="creditsModalLabel">Add Order</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">  
@@ -205,7 +207,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary" name="saveJobOrder">Save changes</button>
+                                        <button type="submit" class="btn btn-primary" name="saveCredits">Save changes</button>
                                     </div>
                                 </div>
                             </form>
@@ -264,7 +266,7 @@
     <!-- Include jQuery and jQuery UI libraries -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-   
+
     <!-- Include DataTables library -->
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script> 
@@ -276,9 +278,20 @@
     <!-- Template Javascript -->
     <script src="../js/main.js"></script>
     <script src="script.js"></script>
-</body>
-</html>
-<script>
+    <script>
     // Automatically set today's date
     document.getElementById('add-date').valueAsDate = new Date();
+
+
+
+
 </script>
+</body>
+</html>
+
+
+
+
+
+
+
