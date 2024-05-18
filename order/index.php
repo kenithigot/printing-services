@@ -42,13 +42,13 @@
                 </ul>
                 <div class="added-container">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#order-modal">Add Order</button>
-                    <hr>
+                    <hr>               
                     <table id="order-table" class="table table-striped" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Order</th>                 
-                                <th>Client</th>
-                                <th>QTY</th>                          
+                                <th>QTY</th>
+                                <th>Price</th>                          
                                 <th>Product</th>
                                 <th>Date Order</th>
                                 <th>Due Date</th>
@@ -56,7 +56,7 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                    </table>
+                    </table>            
 
                     <!-- Add Order Modal -->
                     <div class="modal fade" id="order-modal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
@@ -79,24 +79,142 @@
                                                 <option value="Plate Number">Plate Number</option>
                                                 <option value="Tarpaulin">Tarpaulin</option>
                                                 <option value="T-shirt Printing">T-shirt Printing</option>
-                                                <option value="Fullsublimation">Fullsublimation</option>
                                                 <option value="Sentra Board Standee">Sentra Board Standee </option>
                                                 <option value="Mug printing">Mug printing</option>
-                                                <option value="School ID">School ID</option>
+                                                <option value="ID">ID</option>
                                                 <option value="Sticker">Sticker</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3" id="tarpaulinInput" style="display: none;">
+                                            <label for="tarpaulinSize" class="form-label">Tarpaulin Size:<span style="color:red">&nbsp*</span></label>
+                                            <select class="form-control" id="tarpaulinSize" name="tarpaulinSize" >
+                                                <option value="" selected disabled>Select the Size of Tarpaulin</option>
+                                                <option value="2x3">2x3</option>
+                                                <option value="2x4">2x4</option>
+                                                <option value="2x5">2x5</option>
+                                                <option value="2x6">2x6</option>
+                                                <option value="2x7">2x7</option>
+                                                <option value="2x8">2x8</option>
+                                                <option value="2x9">2x9</option>
+                                                <option value="2x10">2x10</option>
+                                                <option value="2x11">2x11</option>
+                                                <option value="2x12">2x12</option>
+                                                <option value="2x13">2x13</option>
+                                                <option value="2x14">2x14</option>
+                                                <option value="2x15">2x15</option>
+                                                <option value="2x16">2x16</option>
+                                                <option value="2x17">2x17</option>
+                                                <option value="2x18">2x18</option>
+                                                <option value="2x19">2x19</option>
+                                                <option value="2x20">2x20</option>
+                                                <option value="2x21">2x21</option>
+                                                <option value="2x22">2x22</option>
+                                                <option value="3x3">3x3</option>
+                                                <option value="3x4">3x4</option>
+                                                <option value="3x5">3x5</option>
+                                                <option value="3x6">3x6</option>
+                                                <option value="3x7">3x7</option>
+                                                <option value="3x8">3x8</option>
+                                                <option value="3x9">3x9</option>
+                                                <option value="3x10">3x10</option>
+                                                <option value="3x11">3x11</option>
+                                                <option value="3x12">3x12</option>
+                                                <option value="3x13">3x13</option>
+                                                <option value="3x14">3x14</option>
+                                                <option value="3x15">3x15</option>
+                                                <option value="3x16">3x16</option>
+                                                <option value="3x17">3x17</option>
+                                                <option value="3x18">3x18</option>
+                                                <option value="3x19">3x19</option>
+                                                <option value="3x20">3x20</option>
+                                                <option value="3x21">3x21</option>
+                                                <option value="4x2">4x2</option>
+                                                <option value="4x3">4x3</option>
+                                                <option value="4x4">4x4</option>
+                                                <option value="4x5">4x5</option>
+                                                <option value="4x6">4x6</option>
+                                                <option value="4x7">4x7</option>
+                                                <option value="4x8">4x8</option>
+                                                <option value="4x9">4x9</option>
+                                                <option value="4x10">4x10</option>
+                                                <option value="4x11">4x11</option>
+                                                <option value="4x12">4x12</option>
+                                                <option value="4x13">4x13</option>
+                                                <option value="4x14">4x14</option>
+                                                <option value="4x15">4x15</option>
+                                                <option value="4x16">4x16</option>
+                                                <option value="4x17">4x17</option>
+                                                <option value="4x18">4x18</option>
+                                                <option value="4x19">4x19</option>
+                                                <option value="4x20">4x20</option>
+                                                <option value="4x21">4x21</option>
+                                                <option value="5x2">5x2</option>
+                                                <option value="5x3">5x3</option>
+                                                <option value="5x4">5x4</option>
+                                                <option value="5x5">5x5</option>
+                                                <option value="5x6">5x6</option>
+                                                <option value="5x7">5x7</option>
+                                                <option value="5x8">5x8</option>
+                                                <option value="5x9">5x9</option>
+                                                <option value="5x10">5x10</option>
+                                                <option value="5x11">5x11</option>
+                                                <option value="5x12">5x12</option>
+                                                <option value="5x13">5x13</option>
+                                                <option value="5x14">5x14</option>
+                                                <option value="5x15">5x15</option>
+                                                <option value="5x16">5x16</option>
+                                                <option value="5x17">5x17</option>
+                                                <option value="5x18">5x18</option>
+                                                <option value="5x19">5x19</option>
+                                                <option value="5x20">5x20</option>
+                                                <option value="5x21">5x21</option>                                               
+                                            </select>
+                                        </div>
+                                        <div class="mb-3" id="TarpLayoutInput" style="display:none">
+                                            <label for="layoutTarp" class="form-label">Tarpaulin Layout:<span style="color:red">&nbsp*</span></label>
+                                            <select class="form-control" id="layoutTarp" name="layoutTarp">
+                                                <option value="" selected disabled>Select Tarpaulin Layout</option>
+                                                <option value="Without Layout">Without Layout</option>
+                                                <option value="With Layout">With Layout</option>
+                                                <option value="With Layout + Rush Print">With Layout + Rush Print</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3" id="productIdInput" style="display: none;">
+                                            <label for="productId" class="form-label">ID:<span style="color:red">&nbsp*</span></label>
+                                            <select class="form-control" id="productId" name="productId">
+                                                <option value="" selected disabled>Select ID</option>
+                                                <option value="School ID">School ID</option>
+                                                <option value="Barangay ID">Barangay ID</option>
+                                                <option value="Walk-In ID">Walk-In ID</option>
+                                            </select>
+                                        </div>  
+                                        <div class="mb-3" id="platenumberinput" style="display: none;">
+                                            <label for="plate_number" class="form-label">Plate Number:<span style="color:red">&nbsp*</span></label>
+                                            <input type="text" class="form-control" id="plate_number" name="plate_number" placeholder="Type plate number">
+                                        </div>
+                                        <div class="mb-3" id="platenumPriceInput" style="display:none">
+                                            <label for="platenumPrice" class="form-label">Plate Number Category:<span style="color:red">&nbsp*</span></label>
+                                            <select class="form-control" id="platenumPrice" name="platenumPrice">
+                                                <option value="" selected disabled>Select Category</option>
+                                                <option value="Promo">Promo Offer</option>
+                                                <option value="Regular">Regular</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3" id="mugpriceInput" style="display:none">
+                                            <label for="mugprice" class="form-label">Mug Category:<span style="color:red">&nbsp*</span></label>
+                                            <select class="form-control" id="mugprice" name="mugprice">
+                                                <option value="" selected disabled>Select Category</option>
+                                                <option value="Promo Offer">Promo Offer</option>
+                                                <option value="Regular Offer">Regular</option>
                                             </select>
                                         </div>
                                         <div class="mb-3" id="commonQuantityInput" style="display: none;">
                                             <label for="commonQuantity" class="form-label">Quantity:<span style="color:red">&nbsp*</span></label>
                                             <input type="number" class="form-control" id="commonQuantity" name="commonQuantity" placeholder="Type quantity">
-                                        </div>
-                                        <div class="mb-3" id="platenumberinput" style="display: none;">
-                                            <label for="plate_number" class="form-label">Plate Number:<span style="color:red">&nbsp*</span></label>
-                                            <input type="text" class="form-control" id="plate_number" name="plate_number" placeholder="Type plate number">
-                                        </div>
-                                        <div class="mb-3" id="tarpaulinInput" style="display: none;">
-                                            <label for="tarpaulinSize" class="form-label">Tarpaulin Size:<span style="color:red">&nbsp*</span></label>
-                                            <input type="text" class="form-control" id="tarpaulinSize" name="tarpaulinSize" placeholder="Type tarpaulin size">
+                                        </div> 
+                                        <div class="mb-3" id="costItemInput" style="display:none">
+                                            <label for="costItem" class="form-label">Price:<span style="color:red">&nbsp*</span></label>
+                                            <input type="number" class="form-control" id="costItem" name="costItem" placeholder="Type the price of an item">
                                         </div>
                                         <div id="tshirtPrintingInputs" style="display: none;">
                                             <div class="mb-3">
@@ -112,32 +230,19 @@
                                                 </select>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="typeCloth" class="form-label">Type of Cloth:<span style="color:red">&nbsp*</span></label>
-                                                <select class="form-control" id="typeCloth" name="typeCloth">
-                                                    <option value="" selected disabled>Type of Cloth</option>
-                                                    <option value="Dryfit">Dryfit</option>
-                                                    <option value="Active">Active</option>
-                                                    <option value="Cotton">Cotton</option>
+                                                <label for="printingDetail" class="form-label">Printing Detail:<span style="color:red">&nbsp*</span></label>
+                                                <select class="form-control" id="printingDetail" name="printingDetail" onchange="hidesize()">
+                                                    <option value="" selected disabled>Select Printing Detail</option>
+                                                    <option value="T-shirt with Print Dryfit White">T-shirt with Print Dryfit White</option>
+                                                    <option value="T-shirt with Print Dryfit Colored">T-shirt with Print Dryfit Colored</option>
+                                                    <option value="T-shirt with Print Cotton White">T-shirt with Print Cotton White</option>
+                                                    <option value="T-shirt with Print Cotton Colored">T-shirt with Print Cotton Colored</option>
+                                                    <option value="Poloshirt with print Dryfit White">Poloshirt with print Dryfit White</option>
+                                                    <option value="Poloshirt with print Dryfit Colored">Poloshirt with print Dryfit Colored</option>
+                                                    <option value="Poloshirt with print Cotton White">Poloshirt with print Cotton White</option>
+                                                    <option value="Poloshirt with print Cotton Colored">Poloshirt with print Cotton Colored</option>
                                                 </select>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="typeShirt" class="form-label">Type of Shirt:<span style="color:red">&nbsp*</span></label>
-                                                <select class="form-control" id="typeShirt" name="typeShirt" onchange="toggleOtherInput()">
-                                                    <option value="" selected disabled>Select the type of Shirt</option>
-                                                    <option value="Customized Full Sublimation">Customized Full Sublimation</option>
-                                                    <option value="Jersey">Jersey</option>
-                                                    <option value="T-Shirt">T-Shirt</option>
-                                                    <option value="Polo Shirt">Polo Shirt</option>
-                                                    <option value="V-Neck">V-Neck</option>
-                                                    <option value="Long Sleeve">Long Sleeve</option>
-                                                    <option value="Other">Other</option>
-                                                </select>
-                                            </div>
-                                            <div class="mb-3" id="typeShirtOtherInput" style="display: none;">
-                                                <label for="typeShirtOther" class="form-label">Applicable for Type of Shirt [Other]:<span style="color:red">&nbsp*</span></label>
-                                                <input type="text" class="form-control" id="typeShirtOther" name="typeShirtOther">
-                                            </div>
-
+                                            </div>                                        
                                             <div class="mb-3">
                                                 <label for="xsmall" class="form-label">Quantity ( Xs ) :<span style="color:red">&nbsp*</span></label>
                                                 <input type="number" class="form-control" id="xsmall" name="xsmall" placeholder="Type quantity of Xs size" >
@@ -228,6 +333,10 @@
                                             </div>
                                             <br>
                                             <div class="custom-control custom-radio custom-control-inline">
+                                                <label class="custom-control-label fs-5 px-2 fw-bold" for="view-productPrice">Total Price:</label>
+                                                <label class="custom-control-label fs-5 border-label" id="view-productPrice" name="view-productPrice"></label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline">
                                                 <label class="custom-control-label fs-5 px-2 fw-bold" for="view-client">Client:</label>
                                                 <label class="custom-control-label fs-5 border-label" id="view-client" name="view-client"></label>
                                             </div>
@@ -239,25 +348,33 @@
                                                 <label class="custom-control-label fs-5 px-2 fw-bold" for="view-plate_number">Plate Number:</label>
                                                 <label class="custom-control-label fs-5 border-label" id="view-plate_number" name="view-plate_number"></label>
                                             </div>
+                                            <div class="custom-control custom-radio custom-control-inline ms-2" id="view-productPromo-label">
+                                                <label class="custom-control-label fs-5 px-2 fw-bold" for="view-productPromo">Plate Number Promo:</label>
+                                                <label class="custom-control-label fs-5 border-label" id="view-productPromo" name="view-productPromo"></label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline ms-2" id="view-mugPromo-label">
+                                                <label class="custom-control-label fs-5 px-2 fw-bold" for="view-mugPromo">Mug Printing Promo:</label>
+                                                <label class="custom-control-label fs-5 border-label" id="view-mugPromo" name="view-mugPromo"></label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline ms-2" id="view-productId-label">
+                                                <label class="custom-control-label fs-5 px-2 fw-bold" for="view-productId">ID:</label>
+                                                <label class="custom-control-label fs-5 border-label" id="view-productId" name="view-productId"></label>
+                                            </div>
                                             <div class="custom-control custom-radio custom-control-inline ms-2" id="view-tarpaulin-label">
                                                 <label class="custom-control-label fs-5 px-2 fw-bold" for="view-tarpaulin">Tarpaulin Size:</label>
                                                 <label class="custom-control-label fs-5 border-label" id="view-tarpaulin" name="view-tarpaulin"></label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline ms-2" id="view-layoutTarp-label">
+                                                <label class="custom-control-label fs-5 px-2 fw-bold" for="view-layoutTarp">Tarpaulin Layout:</label>
+                                                <label class="custom-control-label fs-5 border-label" id="view-layoutTarp" name="view-layoutTarp"></label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline ms-2" id="view-typePrintEmbro-label">
                                                 <label class="custom-control-label fs-5 px-2 fw-bold" for="view-typePrintEmbro">Type of Print/Embro:</label>
                                                 <label class="custom-control-label fs-5 border-label" id="view-typePrintEmbro" name="view-typePrintEmbro"></label>
                                             </div>
-                                            <div class="custom-control custom-radio custom-control-inline ms-2" id="view-typeShirt-label">
-                                                <label class="custom-control-label fs-5 px-2 fw-bold" for="view-typeShirt">Type of Shirt:</label>
-                                                <label class="custom-control-label fs-5 border-label" id="view-typeShirt" name="view-typeShirt"></label>
-                                            </div>
-                                            <div class="custom-control custom-radio custom-control-inline ms-2" id="view-typeShirtOther-label">
-                                                <label class="custom-control-label fs-5 px-2 fw-bold" for="view-typeShirtOther">Type of Shirt[Other]:</label>
-                                                <label class="custom-control-label fs-5 border-label" id="view-typeShirtOther" name="view-typeShirtOther"></label>
-                                            </div>
-                                            <div class="custom-control custom-radio custom-control-inline ms-2" id="view-typeCloth-label">
-                                                <label class="custom-control-label fs-5 px-2 fw-bold" for="view-typeCloth">Type of Cloth:</label>
-                                                <label class="custom-control-label fs-5 border-label" id="view-typeCloth" name="view-typeCloth"></label>
+                                            <div class="custom-control custom-radio custom-control-inline ms-2" id="view-printingDetail-label">
+                                                <label class="custom-control-label fs-5 px-2 fw-bold" for="view-printingDetail">Printing Detail:</label>
+                                                <label class="custom-control-label fs-5 border-label" id="view-printingDetail" name="view-printingDetail"></label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline ms-2 size-fields ">
                                                 <label class="custom-control-label fs-5 px-2 fw-bold " for="view-size">T-Shirt Sizes<span style="color:red">*</span></label>
@@ -339,7 +456,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="editorder" class="form-label" id="editorderLabel">Order:<span style="color:red">&nbsp*</span></label>
-                                            <select class="form-control" id="editorder" name="editorder">
+                                            <select class="form-control" id="editorder" name="editorder" disabled>
                                                 <option value="" selected disabled>Select Order</option>
                                                 <option value="Plate Number">Plate Number</option>
                                                 <option value="Tarpaulin">Tarpaulin</option>
@@ -347,8 +464,37 @@
                                                 <option value="Fullsublimation">Fullsublimation</option>
                                                 <option value="Sentra Board Standee">Sentra Board Standee </option>
                                                 <option value="Mug printing">Mug printing</option>
-                                                <option value="School ID">School ID</option>
+                                                <option value="ID">ID</option>
                                                 <option value="Sticker">Sticker</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="editproductId" class="form-label" id="editproductIdLabel">ID:<span style="color:red">&nbsp*</span></label>
+                                            <select class="form-control" id="editproductId" name="editproductId">
+                                                <option value="" selected disabled>Select ID</option>
+                                                <option value="School ID">School ID</option>
+                                                <option value="Barangay ID">Barangay ID</option>
+                                                <option value="Walk-In ID">Walk-In ID</option>
+                                            </select>
+                                        </div>   
+                                        <div class="mb-3">
+                                            <label for="editplate_number" class="form-label" id="editplate_numberLabel">Plate Number:<span style="color:red">&nbsp*</span></label>
+                                            <input type="text" class="form-control" id="editplate_number" name="editplate_number" placeholder="Type plate number">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="editplatenumPrice" class="form-label" id="editplatenumPriceLabel">Plate Number Category:<span style="color:red">&nbsp*</span></label>
+                                            <select class="form-control" id="editplatenumPrice" name="editplatenumPrice">
+                                                <option value="" selected disabled>Select Category</option>
+                                                <option value="Promo">Promo Offer</option>
+                                                <option value="Regular">Regular</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="editmugprice" class="form-label" id="editmugpriceLabel">Mug Category:<span style="color:red">&nbsp*</span></label>
+                                            <select class="form-control" id="editmugprice" name="editmugprice">
+                                                <option value="" selected disabled>Select Category</option>
+                                                <option value="Promo Offer">Promo Offer</option>
+                                                <option value="Regular Offer">Regular</option>
                                             </select>
                                         </div>
                                         <div class="mb-3">
@@ -356,13 +502,99 @@
                                             <input type="number" class="form-control" id="editcommonQuantity" name="editcommonQuantity" placeholder="Type quantity">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="editplate_number" class="form-label" id="editplate_numberLabel">Plate Number:<span style="color:red">&nbsp*</span></label>
-                                            <input type="text" class="form-control" id="editplate_number" name="editplate_number" placeholder="Type plate number">
+                                            <label for="edittarpaulinSize" class="form-label" id="edittarpaulinSizeLabel">Tarpaulin Size:<span style="color:red">&nbsp*</span></label>
+                                            <select class="form-control" id="edittarpaulinSize" name="tarpaulinSize" >
+                                                <option value="" selected disabled>Select the Size of Tarpaulin</option>
+                                                <option value="2x3">2x3</option>
+                                                <option value="2x4">2x4</option>
+                                                <option value="2x5">2x5</option>
+                                                <option value="2x6">2x6</option>
+                                                <option value="2x7">2x7</option>
+                                                <option value="2x8">2x8</option>
+                                                <option value="2x9">2x9</option>
+                                                <option value="2x10">2x10</option>
+                                                <option value="2x11">2x11</option>
+                                                <option value="2x12">2x12</option>
+                                                <option value="2x13">2x13</option>
+                                                <option value="2x14">2x14</option>
+                                                <option value="2x15">2x15</option>
+                                                <option value="2x16">2x16</option>
+                                                <option value="2x17">2x17</option>
+                                                <option value="2x18">2x18</option>
+                                                <option value="2x19">2x19</option>
+                                                <option value="2x20">2x20</option>
+                                                <option value="2x21">2x21</option>
+                                                <option value="2x22">2x22</option>
+                                                <option value="3x3">3x3</option>
+                                                <option value="3x4">3x4</option>
+                                                <option value="3x5">3x5</option>
+                                                <option value="3x6">3x6</option>
+                                                <option value="3x7">3x7</option>
+                                                <option value="3x8">3x8</option>
+                                                <option value="3x9">3x9</option>
+                                                <option value="3x10">3x10</option>
+                                                <option value="3x11">3x11</option>
+                                                <option value="3x12">3x12</option>
+                                                <option value="3x13">3x13</option>
+                                                <option value="3x14">3x14</option>
+                                                <option value="3x15">3x15</option>
+                                                <option value="3x16">3x16</option>
+                                                <option value="3x17">3x17</option>
+                                                <option value="3x18">3x18</option>
+                                                <option value="3x19">3x19</option>
+                                                <option value="3x20">3x20</option>
+                                                <option value="3x21">3x21</option>
+                                                <option value="4x2">4x2</option>
+                                                <option value="4x3">4x3</option>
+                                                <option value="4x4">4x4</option>
+                                                <option value="4x5">4x5</option>
+                                                <option value="4x6">4x6</option>
+                                                <option value="4x7">4x7</option>
+                                                <option value="4x8">4x8</option>
+                                                <option value="4x9">4x9</option>
+                                                <option value="4x10">4x10</option>
+                                                <option value="4x11">4x11</option>
+                                                <option value="4x12">4x12</option>
+                                                <option value="4x13">4x13</option>
+                                                <option value="4x14">4x14</option>
+                                                <option value="4x15">4x15</option>
+                                                <option value="4x16">4x16</option>
+                                                <option value="4x17">4x17</option>
+                                                <option value="4x18">4x18</option>
+                                                <option value="4x19">4x19</option>
+                                                <option value="4x20">4x20</option>
+                                                <option value="4x21">4x21</option>
+                                                <option value="5x2">5x2</option>
+                                                <option value="5x3">5x3</option>
+                                                <option value="5x4">5x4</option>
+                                                <option value="5x5">5x5</option>
+                                                <option value="5x6">5x6</option>
+                                                <option value="5x7">5x7</option>
+                                                <option value="5x8">5x8</option>
+                                                <option value="5x9">5x9</option>
+                                                <option value="5x10">5x10</option>
+                                                <option value="5x11">5x11</option>
+                                                <option value="5x12">5x12</option>
+                                                <option value="5x13">5x13</option>
+                                                <option value="5x14">5x14</option>
+                                                <option value="5x15">5x15</option>
+                                                <option value="5x16">5x16</option>
+                                                <option value="5x17">5x17</option>
+                                                <option value="5x18">5x18</option>
+                                                <option value="5x19">5x19</option>
+                                                <option value="5x20">5x20</option>
+                                                <option value="5x21">5x21</option>                                               
+                                            </select>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="edittarpaulinSize" class="form-label" id="edittarpaulinSizeLabel">Tarpaulin Size:<span style="color:red">&nbsp*</span></label>
-                                            <input type="text" class="form-control" id="edittarpaulinSize" name="edittarpaulinSize" placeholder="Type tarpaulin size">
-                                        </div>  
+                                            <label for="editlayoutTarp" class="form-label" id="editlayoutTarpLabel">Tarpaulin Layout:<span style="color:red">&nbsp*</span></label>
+                                            <select class="form-control" id="editlayoutTarp" name="editlayoutTarp">
+                                                <option value="" selected disabled>Select Tarpaulin Layout</option>
+                                                <option value="Without Layout">Without Layout</option>
+                                                <option value="With Layout">With Layout</option>
+                                                <option value="With Layout + Rush Print">With Layout + Rush Print</option>
+                                            </select>
+                                        </div>
                                         <div class="mb-3">
                                             <label for="edittypePrintEmbro" class="form-label" id="edittypePrintEmbroLabel">Type of Print/Embro:<span style="color:red">&nbsp*</span></label>
                                             <select class="form-control" id="edittypePrintEmbro" name="edittypePrintEmbro">
@@ -376,31 +608,19 @@
                                             </select>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="edittypeCloth" class="form-label" id="edittypeClothLabel">Type of Cloth:<span style="color:red">&nbsp*</span></label>
-                                            <select class="form-control" id="edittypeCloth" name="edittypeCloth">
-                                                <option value="" selected disabled>Type of Cloth</option>
-                                                <option value="Dryfit">Dryfit</option>
-                                                <option value="Active">Active</option>
-                                                <option value="Cotton">Cotton</option>
+                                            <label for="editprintingDetail" class="form-label" id="editprintingDetailLabel">Printing Detail:<span style="color:red">&nbsp*</span></label>
+                                            <select class="form-control" id="editprintingDetail" name="editprintingDetail" disabled>
+                                                <option value="" selected disabled>Select Printing Detail</option>
+                                                <option value="T-shirt with Print Dryfit White">T-shirt with Print Dryfit White</option>
+                                                <option value="T-shirt with Print Dryfit Colored">T-shirt with Print Dryfit Colored</option>
+                                                <option value="T-shirt with Print Cotton White">T-shirt with Print Cotton White</option>
+                                                <option value="T-shirt with Print Cotton Colored">T-shirt with Print Cotton Colored</option>
+                                                <option value="Poloshirt with print Dryfit White">Poloshirt with print Dryfit White</option>
+                                                <option value="Poloshirt with print Dryfit Colored">Poloshirt with print Dryfit Colored</option>
+                                                <option value="Poloshirt with print Cotton White">Poloshirt with print Cotton White</option>
+                                                <option value="Poloshirt with print Cotton Colored">Poloshirt with print Cotton Colored</option>
                                             </select>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="edittypeShirt" class="form-label" id="edittypeShirtLabel">Type of Shirt:<span style="color:red">&nbsp*</span></label>
-                                            <select class="form-control" id="edittypeShirt" name="edittypeShirt">
-                                                <option value="" selected disabled>Select the type of Shirt</option>
-                                                <option value="Customized Full Sublimation">Customized Full Sublimation</option>
-                                                <option value="Jersey">Jersey</option>
-                                                <option value="T-Shirt">T-Shirt</option>
-                                                <option value="Polo Shirt">Polo Shirt</option>
-                                                <option value="V-Neck">V-Neck</option>
-                                                <option value="Long Sleeve">Long Sleeve</option>
-                                                <option value="Other">Other</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="edittypeShirtOther" class="form-label" id="edittypeShirtOtherLabel">Applicable for Type of Shirt [Other]:<span style="color:red">&nbsp*</span></label>
-                                            <input type="text" class="form-control" id="edittypeShirtOther" name="edittypeShirtOther">
-                                        </div>
+                                        </div>                                                        
                                         <div class="mb-3">
                                             <label for="editxsmall" class="form-label" id="editxsmallLabel">Quantity ( Xs ) :<span style="color:red">&nbsp*</span></label>
                                             <input type="number" class="form-control" id="editxsmall" name="editxsmall" placeholder="Type quantity of Xs size" >
@@ -471,7 +691,6 @@
                         </div>
                     </div>
                     <!-- End of Add Order Modal -->
-
                 </div> 
             </div>
             <!-- Navigation bar -->
@@ -487,8 +706,8 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
    
     <!-- Include DataTables library -->
-    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script> 
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script> 
 
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>

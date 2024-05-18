@@ -9,11 +9,12 @@ $(document).ready(function () {
             {
                 "data": null,
                 "render": function (data, type, row) {
-                    return '<button class="btn btn-primary viewOrderBtn" data-bs-toggle="modal" data-bs-target="#viewOrder-modal" data-id="' + row.id + '">View</button>'                          
+                    return '<button class="btn btn-primary viewOrderBtn" data-bs-toggle="modal" data-bs-target="#viewOrder-modal" data-id="' + row.id + '">View</button>' +
+                    '<button class="btn btn-danger ms-2 deleteOrder" data-id="' + row.id + '">Delete</button>'                        
                 }
             },
-            { "data": "client" },
             { "data": "quantity" },
+            { "data": "productPrice" },
             { "data": "type_order" },
             { "data": "date_ordered" },
             { "data": "due_date" },
@@ -51,6 +52,9 @@ $(document).ready(function () {
                     // Populate the labels with data
                     $('#view-jobRole').text(response.type_order);
                     $('#view-client').text(response.client);
+                    
+                    var productPrice = "Php " + response.productPrice;
+                    $('#view-productPrice').text(productPrice);
                     $('#view-quantity').text(response.quantity);
                     $('#view-dateOrdered').text(response.date_ordered);
                     $('#view-dueDate').text(response.due_date);
@@ -65,24 +69,11 @@ $(document).ready(function () {
                         $('.shirt-fields').show();
                         $('#view-typePrintEmbro-label').show();
                         $('#view-typePrintEmbro').text(response.type_print);
+                        $('#view-printingDetail-label').show();
+                        $('#view-printingDetail').text(response.printingDetail);                       
+                        $('#view-layoutTarp-label').hide();
+                        $('#view-layoutTarp').empty();
                         
-
-                        if(response.type_tshirt === "Other"){
-                            $('#view-typeShirt-label').show();
-                            $('#view-typeShirt').text(response.type_tshirt);
-                            $('#view-typeShirtOther-label').show();
-                            $('#view-typeShirtOther').text(response.typeShirtOther);
-                        }else{
-                            $('#view-typeShirt-label').hide();
-                            $('#view-typeShirt').empty();
-                            $('#view-typeShirtOther-label').hide();
-                            $('#view-typeShirtOther').empty();
-                        }
-                        
-                        
-                        $('#view-typeCloth-label').show();
-                        $('#view-typeCloth').text(response.type_cloth);
-    
                         // Display size labels and hide if value is zero
                         $('.size-fields').show();
                         $('#view-xssize-label').toggle(response.x_small !== "0");
@@ -105,12 +96,8 @@ $(document).ready(function () {
                         $('.shirt-fields').hide();
                         $('#view-typePrintEmbro-label').hide();
                         $('#view-typePrintEmbro').empty();
-                        $('#view-typeShirt-label').hide();
-                        $('#view-typeShirt').empty();
-                        $('#view-typeShirtOther-label').hide();
-                        $('#view-typeShirtOther').empty();
-                        $('#view-typeCloth-label').hide();
-                        $('#view-typeCloth').empty();
+                        $('#view-printingDetail-label').hide();
+                        $('#view-printingDetail').empty();
     
                         // Hide size labels
                         $('.size-fields').hide();
@@ -135,19 +122,42 @@ $(document).ready(function () {
                     if(response.type_order === "Plate Number"){
                         $('#view-plate_number-label').show();
                         $('#view-plate_number').text(response.plate_number);
+                        $('#view-productPromo-label').show();
+                        $('#view-productPromo').text(response.productPromo);
                     }else{
                         $('#view-plate_number-label').hide();
                         $('#view-plate_number').empty();
+                        $('#view-productPromo-label').hide();
+                        $('#view-productPromo').empty();
                     }
 
                     if(response.type_order === "Tarpaulin"){
                         $('#view-tarpaulin-label').show();
                         $('#view-tarpaulin').text(response.tarp_size);
+                        $('#view-layoutTarp-label').show();
+                        $('#view-layoutTarp').text(response.tarpLayout);
                     }else{
                         $('#view-tarpaulin-label').hide();
                         $('#view-tarpaulin').empty();
+                        $('#view-layoutTarp-label').hide();
+                        $('#view-layoutTarp').empty();
                     }
 
+                    if(response.type_order === "ID"){
+                        $('#view-productId-label').show();
+                        $('#view-productId').text(response.customerId);
+                    }else{
+                        $('#view-productId-label').hide();
+                        $('#view-productId').empty();
+                    }
+  
+                    if(response.type_order === "Mug printing"){
+                        $('#view-mugPromo-label').show();
+                        $('#view-mugPromo').text(response.productPromo);
+                    }else{
+                        $('#view-mugPromo-label').hide();
+                        $('#view-mugPromo').empty();
+                    }
 
                 } else {
                     console.error("No data available for any label.");
@@ -203,6 +213,52 @@ $(document).ready(function () {
         });
     });
 
+     // Delete Order Deletion 
+     $(document).on('click', '.deleteOrder', function (e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'By clicking Delete Order means all materials will be restored back to the inventory.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc3545',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Delete Order'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: 'delete_order.php',
+                    type: 'POST',
+                    data: { id: id },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.success) {
+                            table.ajax.reload();
+                            Swal.fire({
+                                icon: "success",
+                                title: "Order Deleted",
+                                text: "Order Deleted successfully."
+                            }).then(function() {
+                                location.reload();
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error!",
+                                text: "Failed to Accomplished deleting the Order."
+                            });
+                        }
+                    },
+                    error: function () {
+                        alert('Error deleting Task');
+                    }
+                });
+            }
+        });
+    });
+
     //Edit Order
     $(document).on('click', '.editOrderBtn', function (e) {
         e.preventDefault();
@@ -218,11 +274,13 @@ $(document).ready(function () {
                 $('#editorder').val(response.type_order);
                 $('#editcommonQuantity').val(response.quantity);
                 $('#editplate_number').val(response.plate_number);
+                $('#editplatenumPrice').val(response.productPromo);
                 $('#edittarpaulinSize').val(response.tarp_size);
                 $('#edittypePrintEmbro').val(response.type_print);
-                $('#edittypeCloth').val(response.type_cloth);
-                $('#edittypeShirt').val(response.type_tshirt);
-                $('#edittypeShirtOther').val(response.typeShirtOther);
+                $('#editprintingDetail').val(response.printingDetail);
+                $('#editlayoutTarp').val(response.tarpLayout);
+                $('#editproductId').val(response.customerId);
+                $('#editmugprice').val(response.productPromo);
                 $('#editxsmall').val(response.x_small);
                 $('#editsmall').val(response.small); 
                 $('#editmedium').val(response.medium);
@@ -238,41 +296,59 @@ $(document).ready(function () {
                 
                 //Show/Hide Tshirt Printing Related
                 if (response.type_order == 'T-shirt Printing') {
-                    $('#edittypePrintEmbro, #edittypeCloth , #edittypeShirt, #editxsmall, #editsmall, #editmedium, #editlarge, #editxlarge, #edit2xlarge, #edit3xlarge, #edit4xlarge').show();
-                    $('#edittypePrintEmbroLabel, #edittypeClothLabel, #edittypeShirtLabel, #editxsmallLabel, #editsmallLabel, #editmediumLabel, #editlargeLabel, #editxlargeLabel, #edit2xlargeLabel, #edit3xlargeLabel, #edit4xlargeLabel').show();  
+                    $('#edittypePrintEmbro, #editxsmall, #editsmall, #editmedium, #editlarge, #editxlarge, #edit2xlarge, #edit3xlarge, #edit4xlarge, #editprintingDetail').show();
+                    $('#edittypePrintEmbroLabel, #editxsmallLabel, #editsmallLabel, #editmediumLabel, #editlargeLabel, #editxlargeLabel, #edit2xlargeLabel, #edit3xlargeLabel, #edit4xlargeLabel, #editprintingDetailLabel').show();  
                     
                     $('#editcommonQuantity').hide();
                     $('#editcommonQuantityLabel').hide();
                 } else {
-                    $('#edittypePrintEmbro, #edittypeCloth , #edittypeShirt, #editxsmall, #editsmall, #editmedium, #editlarge, #editxlarge, #edit2xlarge, #edit3xlarge, #edit4xlarge').hide();
-                    $('#edittypePrintEmbroLabel, #edittypeClothLabel, #edittypeShirtLabel, #editxsmallLabel, #editsmallLabel, #editmediumLabel, #editlargeLabel, #editxlargeLabel, #edit2xlargeLabel, #edit3xlargeLabel, #edit4xlargeLabel').hide();
+                    $('#edittypePrintEmbro, #editxsmall, #editsmall, #editmedium, #editlarge, #editxlarge, #edit2xlarge, #edit3xlarge, #edit4xlarge, #editprintingDetail').hide();
+                    $('#edittypePrintEmbroLabel, #editxsmallLabel, #editsmallLabel, #editmediumLabel, #editlargeLabel, #editxlargeLabel, #edit2xlargeLabel, #edit3xlargeLabel, #edit4xlargeLabel, #editprintingDetailLabel').hide();
+                    $('#editcommonQuantity').show();
+                    $('#editcommonQuantityLabel').show()
                 }
-                if (response.type_tshirt == 'Other'){
-                    $('#edittypeShirtOther').show();
-                    $('#edittypeShirtOtherLabel').show();
-                }else{
-                    $('#edittypeShirtOther').hide();
-                    $('#edittypeShirtOtherLabel').hide();
-                }
-
+    
                 //Show/Hide Plate Number Related
                 if (response.type_order == 'Plate Number') {
-                    $('#editplate_number').show();
-                    $('#editplate_numberLabel').show();
+                    $('#editplate_number, #editplatenumPrice').show();
+                    $('#editplate_numberLabel, #editplatenumPriceLabel').show();
+
+                    $('#editcommonQuantity').show();
+                    $('#editcommonQuantityLabel').show();
                     
                 } else {
-                    $('#editplate_number').hide();
-                    $('#editplate_numberLabel').hide();
+                    $('#editplate_number, #editplatenumPrice').hide();
+                    $('#editplate_numberLabel, #editplatenumPriceLabel').hide();
+                }
+
+                //Show/Hide ID Related
+                if (response.type_order == 'ID') {
+                    $('#editproductId').show();
+                    $('#editproductIdLabel').show();
+                    
+                } else {
+                    $('#editproductId').hide();
+                    $('#editproductIdLabel').hide();
                 }
 
                 //Show/Hide Tarpalin Size Related
                 if (response.type_order == 'Tarpaulin') {
-                    $('#edittarpaulinSize').show();
-                    $('#edittarpaulinSizeLabel').show();
+                    $('#edittarpaulinSize, #editlayoutTarp').show();
+                    $('#edittarpaulinSizeLabel, #editlayoutTarpLabel').show();
                     
                 } else {
-                    $('#edittarpaulinSize').hide();
-                    $('#edittarpaulinSizeLabel').hide();
+                    $('#edittarpaulinSize, #editlayoutTarp').hide();
+                    $('#edittarpaulinSizeLabel, #editlayoutTarpLabel').hide();
+                }
+
+                //Show/Hide Mug Related
+                if (response.type_order == 'Mug printing') {
+                    $('#editmugprice').show();
+                    $('#editmugpriceLabel').show();
+                    
+                } else {
+                    $('#editmugprice').hide();
+                    $('#editmugpriceLabel').hide();
                 }
                     
                 $('#editOrder-modal').modal('show');
@@ -282,38 +358,46 @@ $(document).ready(function () {
                 console.error(xhr.responseText);
             }
         });
+        // Datepicker initialization
+        $(function() {
+            $("#editdateDeadline, #editdateOrdered").datepicker({
+                dateFormat: 'DD, d MM, yy'
+            });
+        });
 
-// Update Task Order
-$('#editExistingOrder').click(function () {
-    var id = $(this).data('id');
+    // Update Task Order
+    $('#editExistingOrder').click(function () {
+        var id = $(this).data('id');
 
-    // Get the form data
-    var OrderData = {
-        id: id,
-        editclientName: $('#editclientName').val(),
-        editorder: $('#editorder').val(),
-        edittypePrintEmbro: $('#edittypePrintEmbro').val(),
-        edittypeCloth: $('#edittypeCloth').val(),
-        edittypeShirt: $('#edittypeShirt').val(),
-        edittypeShirtOther: $('#edittypeShirtOther').val(),
-        editdateDeadline: $('#editdateDeadline').val(),
-        editorderStatus: $('#editorderStatus').val(),
-        editcommonQuantity: $('#editcommonQuantity').val(),
-        editplate_number: $('#editplate_number').val(),
-        edittarpaulinSize: $('#edittarpaulinSize').val(),
-        editxsmall: $('#editxsmall').val(),
-        editsmall: $('#editsmall').val(),
-        editmedium: $('#editmedium').val(),
-        editlarge: $('#editlarge').val(),
-        editxlarge: $('#editxlarge').val(),
-        edit2xlarge: $('#edit2xlarge').val(),
-        edit3xlarge: $('#edit3xlarge').val(),
-        edit4xlarge: $('#edit4xlarge').val(),
-        editdateOrdered: $('#editdateOrdered').val(),
-        editstaffName: $('#editstaffName').val()
-    };
+        // Get the form data
+        var OrderData = {
+            id: id,
+            editclientName: $('#editclientName').val(),
+            editorder: $('#editorder').val(),
+            edittypePrintEmbro: $('#edittypePrintEmbro').val(),
+            editprintingDetail: $('#editprintingDetail').val(),
+            editdateDeadline: $('#editdateDeadline').val(),
+            editorderStatus: $('#editorderStatus').val(),
+            editcommonQuantity: $('#editcommonQuantity').val(),
+            editplate_number: $('#editplate_number').val(),
+            editplatenumPrice: $('#editplatenumPrice').val(),
+            edittarpaulinSize: $('#edittarpaulinSize').val(),
+            editlayoutTarp: $('#editlayoutTarp').val(),
+            editmugprice: $('#editmugprice').val(),
+            editproductId: $('#editproductId').val(),
+            editxsmall: $('#editxsmall').val(),
+            editsmall: $('#editsmall').val(),
+            editmedium: $('#editmedium').val(),
+            editlarge: $('#editlarge').val(),
+            editxlarge: $('#editxlarge').val(),
+            edit2xlarge: $('#edit2xlarge').val(),
+            edit3xlarge: $('#edit3xlarge').val(),
+            edit4xlarge: $('#edit4xlarge').val(),
+            editdateOrdered: $('#editdateOrdered').val(),
+            editstaffName: $('#editstaffName').val()
+        };
 
-    $.ajax({
+        $.ajax({
         url: 'updateOrder.php',
         type: 'POST',
         data: OrderData,
@@ -330,8 +414,8 @@ $('#editExistingOrder').click(function () {
             } else {
                 Swal.fire({
                     icon: "error",
-                    title: "Insufficient Size(s)!",
-                    html: "Limited inventory for these following sizes: <br>" + response.error
+                    title: "Cant Update Order",
+                    html: response.message
                 });
             }
         },
@@ -340,6 +424,12 @@ $('#editExistingOrder').click(function () {
             alert('Error Updating Order');
         }
     });
+    // Datepicker initialization
+    $(function() {
+        $("#editdateDeadline, #editdateOrdered").datepicker({
+            dateFormat: 'DD, d MM, yy'
+        });
+    });
 });
 
 
@@ -347,33 +437,24 @@ $('#editExistingOrder').click(function () {
     // Event listener for order selection change
     $('#editorder').change(function() {
         if ($(this).val() == 'T-shirt Printing') {
-            $('#edittypePrintEmbro, #edittypeCloth , #edittypeShirt, #editxsmall, #editsmall, #editmedium, #editlarge, #editxlarge, #edit2xlarge, #edit3xlarge, #edit4xlarge').show();
-            $('#edittypePrintEmbroLabel, #edittypeClothLabel, #edittypeShirtLabel, #editxsmallLabel, #editsmallLabel, #editmediumLabel, #editlargeLabel, #editxlargeLabel, #edit2xlargeLabel, #edit3xlargeLabel, #edit4xlargeLabel').show();
+            $('#edittypePrintEmbro, #editxsmall, #editsmall, #editmedium, #editlarge, #editxlarge, #edit2xlarge, #edit3xlarge, #edit4xlarge, #editprintingDetail').show();
+            $('#edittypePrintEmbroLabel, #editxsmallLabel, #editsmallLabel, #editmediumLabel, #editlargeLabel, #editxlargeLabel, #edit2xlargeLabel, #edit3xlargeLabel, #edit4xlargeLabel, #editprintingDetailLabel').show();
             
             $('#editcommonQuantity').hide();
             $('#editcommonQuantityLabel').hide();
 
-            // Hide Type Shirt Other field initially
-            $('#edittypeShirtOther').hide();
-            $('#edittypeShirtOtherLabel').hide();
         } else {
-            $('#edittypePrintEmbro, #edittypeCloth , #edittypeShirt, #editxsmall, #editsmall, #editmedium, #editlarge, #editxlarge, #edit2xlarge, #edit3xlarge, #edit4xlarge').hide();
-            $('#edittypePrintEmbroLabel, #edittypeClothLabel, #edittypeShirtLabel, #editxsmallLabel, #editsmallLabel, #editmediumLabel, #editlargeLabel, #editxlargeLabel, #edit2xlargeLabel, #edit3xlargeLabel, #edit4xlargeLabel').hide();
-            
-            // Hide Type Shirt Other field when order type is not T-shirt Printing
-            $('#edittypeShirtOther').hide();
-            $('#edittypeShirtOtherLabel').hide();
+            $('#edittypePrintEmbro, #editxsmall, #editsmall, #editmedium, #editlarge, #editxlarge, #edit2xlarge, #edit3xlarge, #edit4xlarge, #editprintingDetail').hide();
+            $('#edittypePrintEmbroLabel, #editxsmallLabel, #editsmallLabel, #editmediumLabel, #editlargeLabel, #editxlargeLabel, #edit2xlargeLabel, #edit3xlargeLabel, #edit4xlargeLabel, #editprintingDetailLabel').hide();
 
-            $('#editcommonQuantity').show();
-            $('#editcommonQuantityLabel').show();
         }
     });
 
     // Event listener for order Plate Number selection change
     $('#editorder').change(function() {
         if ($(this).val() == 'Plate Number') {
-            $('#editplate_number').show();
-            $('#editplate_numberLabel').show();
+            $('#editplate_number, #editcommonQuantity').show();
+            $('#editplate_numberLabel, #editcommonQuantityLabel').show();
         } else {
             $('#editplate_number').hide();
             $('#editplate_numberLabel').hide();
@@ -383,25 +464,24 @@ $('#editExistingOrder').click(function () {
     // Event listener for order Tarpaulin selection change
     $('#editorder').change(function() {
         if ($(this).val() == 'Tarpaulin') {
-            $('#edittarpaulinSize').show();
-            $('#edittarpaulinSizeLabel').show();
+            $('#edittarpaulinSize, #editlayoutTarp').show();
+            $('#edittarpaulinSizeLabel, #editlayoutTarpLabel').show();
         } else {
-            $('#edittarpaulinSize').hide();
-            $('#edittarpaulinSizeLabel').hide();
+            $('#edittarpaulinSize, #editlayoutTarp').hide();
+            $('#edittarpaulinSizeLabel, #editlayoutTarpLabel').hide();
         }
     });
 
-   // Event listener for type Shirt selection change 
-    $('#edittypeShirt').change(function() {
-        if ($('#editorder').val() == 'T-shirt Printing' && $(this).val() == 'Other') {
-            $('#edittypeShirtOther').show();
-            $('#edittypeShirtOtherLabel').show();
+    // Event listener for order Mug printing selection change
+    $('#editorder').change(function() {
+        if ($(this).val() == 'Mug printing') {
+            $('#editmugprice').show();
+            $('#editmugpriceLabel').show();
         } else {
-            $('#edittypeShirtOther').hide();
-            $('#edittypeShirtOtherLabel').hide();
+            $('#editmugprice').hide();
+            $('#editmugpriceLabel').hide();
         }
     });
-
     
 });
 
@@ -410,51 +490,101 @@ $('#editExistingOrder').click(function () {
 function toggleInputs() {
     var jobRole = $("#add-order").val();
     var tshirtPrintingInputs = $("#tshirtPrintingInputs");
-    var typeShirtOtherInput = $("#typeShirtOtherInput");
     var platenumberinput = $("#platenumberinput");
     var tarpaulinInput = $("#tarpaulinInput");
     var commonQuantityInput = $("#commonQuantityInput");
+    var costItemInput = $("#costItemInput");
+    var TarpLayoutInput = $("#TarpLayoutInput");
+    var productIdInput = $("#productIdInput");
+    var platenumPriceInput = $("#platenumPriceInput");
+    var mugpriceInput = $("#mugpriceInput");
     
-
     // Hide/show inputs based on selected order type
     if (jobRole === "T-shirt Printing") {
         tshirtPrintingInputs.show();
-        typeShirtOtherInput.hide();
         platenumberinput.hide();
         tarpaulinInput.hide();
         commonQuantityInput.hide();
+        costItemInput.hide();
+        TarpLayoutInput.hide();
+        platenumPriceInput.hide();
+        productIdInput.hide();
+        mugpriceInput.hide();
     } else if (jobRole === "Plate Number") {
         tshirtPrintingInputs.hide();
-        typeShirtOtherInput.hide();
         platenumberinput.show();
         tarpaulinInput.hide();
         commonQuantityInput.show();
+        platenumPriceInput.show();
+        costItemInput.hide();
+        TarpLayoutInput.hide();
+        productIdInput.hide();
+        mugpriceInput.hide();
     } else if (jobRole === "Tarpaulin") {
         tshirtPrintingInputs.hide();
-        typeShirtOtherInput.hide();
         platenumberinput.hide();
         tarpaulinInput.show();
         commonQuantityInput.show();
-    } else {
-        // Hide all inputs if none of the options match
+        costItemInput.hide();
+        platenumPriceInput.hide();
+        TarpLayoutInput.show();
+        productIdInput.hide();
+        mugpriceInput.hide();
+    } else if (jobRole === "ID") {
         tshirtPrintingInputs.hide();
-        typeShirtOtherInput.hide();
         platenumberinput.hide();
         tarpaulinInput.hide();
         commonQuantityInput.show();
+        costItemInput.hide();
+        productIdInput.show();
+        TarpLayoutInput.hide();
+        platenumPriceInput.hide();
+        mugpriceInput.hide();
+    } else if (jobRole === "Mug printing") {
+        tshirtPrintingInputs.hide();
+        platenumberinput.hide();
+        tarpaulinInput.hide();
+        commonQuantityInput.show();
+        costItemInput.hide();
+        productIdInput.hide();
+        TarpLayoutInput.hide();
+        platenumPriceInput.hide();
+        mugpriceInput.show();
+    } else if (jobRole === "Sticker") {
+        tshirtPrintingInputs.hide();
+        platenumberinput.hide();
+        tarpaulinInput.hide();
+        commonQuantityInput.show();
+        costItemInput.show();
+        productIdInput.hide();
+        TarpLayoutInput.hide();
+        platenumPriceInput.hide();
+        mugpriceInput.hide();
+    } else {
+        // Hide all inputs if none of the options match
+        tshirtPrintingInputs.hide();
+        platenumberinput.hide();
+        tarpaulinInput.hide();
+        commonQuantityInput.show();
+        costItemInput.hide();
+        TarpLayoutInput.hide();
+        productIdInput.hide();
+        platenumPriceInput.hide();
+        mugpriceInput.hide();
+        costItemInput.hide();
     }
 }
 
 // Function to toggle "Other" type shirt input
-function toggleOtherInput() {
-    var typeShirt = $("#typeShirt").val();
-    var typeShirtOtherInput = $("#typeShirtOtherInput");
+function hidesize() {
+    var printingDetail = $("#printingDetail").val();
+    var inputXsmall = $("#hidesizeOptional");
 
     // Show/hide "Other" type shirt input based on selection
-    if (typeShirt === "Other") {
-        typeShirtOtherInput.show();
+    if (printingDetail === "T-shirt with Print Dryfit White" || printingDetail === "Poloshirt with print Dryfit White" || printingDetail === "Poloshirt with print Cotton White" || printingDetail === "Poloshirt with print Cotton Colored") {
+        inputXsmall.hide();
     } else {
-        typeShirtOtherInput.hide();
+        inputXsmall.show();
     }
 }
 
