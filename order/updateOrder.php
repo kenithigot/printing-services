@@ -257,11 +257,12 @@ if (isset($_POST["id"])) {
     tarp_size = ?, 
     tarpLayout = ?,
     productPromo = ?,
-    customerId = ?
+    customerId = ?,
+    payment = ?
     WHERE id = ?");
 
     // Bind parameters to the prepared statement
-    $stmt->bind_param("ssssssssssssssssssssssssi", 
+    $stmt->bind_param("sssssssssssssssssssssssssi", 
     $_POST['editclientName'], 
     $_POST['editorder'], 
     $_POST['edittypePrintEmbro'], 
@@ -286,6 +287,7 @@ if (isset($_POST["id"])) {
     $_POST["editlayoutTarp"],
     $productPromoPrice,
     $_POST['editproductId'],
+    $_POST['editpayment'],
     $id);
 
     // Execute the prepared statement
@@ -320,7 +322,31 @@ if (isset($_POST["id"])) {
 
             // Close the prepared statement for inventory update
             $stmt_inventory->close();
+            
         }
+        // Update the corresponding record in the ktees_product_sale table
+        $stmt_sale = $conn->prepare("UPDATE ktees_product_sale SET 
+            date_ordered = ?, 
+            payment = ?, 
+            productPrice = ?, 
+            product = ?
+            WHERE id = ?");
+
+        // Bind parameters to the prepared statement
+        $stmt_sale->bind_param("ssssi", 
+            $_POST['editdateOrdered'], 
+            $_POST['editpayment'], 
+            $productPrice,
+            $_POST['editorder'],  
+            $id 
+            );
+
+         // Execute the prepared statement for inventory update
+         $stmt_sale->execute();
+
+        // Close the prepared statement for ktees_product_sale
+        $stmt_sale->close();
+
 
         echo json_encode(['success' => true]);
     } else {

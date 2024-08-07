@@ -56,6 +56,7 @@ $(document).ready(function () {
                     var productPrice = "Php " + response.productPrice;
                     $('#view-productPrice').text(productPrice);
                     $('#view-quantity').text(response.quantity);
+                    $('#view-payment').text(response.payment);
                     $('#view-dateOrdered').text(response.date_ordered);
                     $('#view-dueDate').text(response.due_date);
                     $('#view-staff').text(response.staff);
@@ -293,6 +294,7 @@ $(document).ready(function () {
                 $('#editdateDeadline').val(response.due_date);
                 $('#editstaffName').val(response.staff);
                 $('#editorderStatus').val(response.order_status);
+                $('#editpayment').val(response.payment);
                 
                 //Show/Hide Tshirt Printing Related
                 if (response.type_order == 'T-shirt Printing') {
@@ -394,7 +396,8 @@ $(document).ready(function () {
             edit3xlarge: $('#edit3xlarge').val(),
             edit4xlarge: $('#edit4xlarge').val(),
             editdateOrdered: $('#editdateOrdered').val(),
-            editstaffName: $('#editstaffName').val()
+            editstaffName: $('#editstaffName').val(),
+            editpayment: $('#editpayment').val()
         };
 
         $.ajax({

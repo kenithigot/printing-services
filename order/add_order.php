@@ -28,6 +28,7 @@ if(isset($_POST["saveOrder"])){
     $staffName = mysqli_real_escape_string($conn, $_POST["add-staffName"]);
     $deadline = mysqli_real_escape_string($conn, $_POST["add-dateDeadline"]);
     $orderStatus = mysqli_real_escape_string($conn, $_POST["add-orderStatus"]);
+    $addpayment = mysqli_real_escape_string($conn, $_POST["add-payment"]);
 
     // Customer ID price
     $customerIdPrice = ["School ID" => 90, "Barangay ID" => 250, "Walk-In ID" => 100];
@@ -298,10 +299,16 @@ if(isset($_POST["saveOrder"])){
     $stmt_inventory->execute();
     $stmt_inventory->close();
 
+    // Insert into ktees_sales table
+    $stmt_sales = $conn->prepare("INSERT INTO ktees_product_sale (date_ordered, productPrice, payment, product) VALUES (?, ?, ?, ?)");
+    $stmt_sales->bind_param("ssss", $dateOrdered, $formattedTotalPrice, $addpayment, $order);
+    $stmt_sales->execute();
+    $stmt_sales->close();
+
     // Prepare and bind parameters
-    $stmt = $conn->prepare("INSERT INTO ktees_order (client, type_order, customerId, plate_number, productPromo, tarp_size, tarpLayout, type_print, printingDetail, x_small, small, medium, large, x_large, xx_large, xxx_large, xxxx_large, quantity, date_ordered, staff, due_date, order_status, productPrice) 
-                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssssssssssssssssssss", $client_name, $order, $productId, $platNum, $promoPrice, $tarpSize, $tarpLayout, $printEmbro, $printingDetail, $xs, $s, $m, $l, $xl, $xxl, $xxxl, $xxxxl, $quantity, $dateOrdered, $staffName, $deadline, $orderStatus, $formattedTotalPrice);
+    $stmt = $conn->prepare("INSERT INTO ktees_order (client, type_order, payment, customerId, plate_number, productPromo, tarp_size, tarpLayout, type_print, printingDetail, x_small, small, medium, large, x_large, xx_large, xxx_large, xxxx_large, quantity, date_ordered, staff, due_date, order_status, productPrice) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssssssssssssssssssss", $client_name, $order, $addpayment, $productId, $platNum, $promoPrice, $tarpSize, $tarpLayout, $printEmbro, $printingDetail, $xs, $s, $m, $l, $xl, $xxl, $xxxl, $xxxxl, $quantity, $dateOrdered, $staffName, $deadline, $orderStatus, $formattedTotalPrice);
 
     // Execute the statement
     if ($stmt->execute() === TRUE) {

@@ -295,7 +295,7 @@
 }
 
 .contain{
-    padding:15px 25px 25px 30px;
+    padding:15px 25px 20px 30px;
 }
 
 .color-new{
@@ -377,4 +377,97 @@ table.table.dataTable.table-striped > tbody > tr:nth-of-type(2n+1) > * {
 
 .border-label{
     border-bottom:1px solid black;
+}
+
+/* Custom CSS for item containers */
+.inventory-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.item-container {
+    position: relative;
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 5px;
+    padding: 20px;
+    width: calc(50% - 20px); /* 50% width with gap */
+    max-width:500px; /* Maximum width */
+    box-sizing: border-box;
+}
+
+.item-container h2 {
+    margin-top: 0;
+}
+
+.item-description {
+    font-size: 16px;
+    color: #000000;  
+}
+
+.restock-button {
+    background-color: #007bff; /* Blue color, you can change this */
+    color: #fff; /* Text color */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: none; /* Hide initially */
+}
+
+.item-container:hover .restock-button {
+    display: block; /* Show on hover */
+}
+
+.restock-button:hover {
+    background-color: #0056b3; /* Darker blue on hover, you can change this */
+}
+
+.item-description p{
+    margin: 0;
+}
+.printtable{
+    width: 100%;
+}
+
+.printtable th, td{
+    padding:0 10px;
+    text-align: center;
+}
+
+.editable{
+    border-bottom:1px solid black
+}
+
+.contain-staff{
+    /* background-color: red; */
+}
+
+.contain-staff h1{
+    font-size: 26px;
+    padding-left:30px;
+    margin: 0;
+    font-weight: bold;
+    padding-top:20px;
+} 
+
+.icon-staff i{
+    padding-right:15px
+}
+
+.table-orders{
+    margin:0 27px;
+    padding:15px;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: 5px;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+}
+
+.table-orders h1{
+    font-size: 26px;
+    font-weight: bold;
 }

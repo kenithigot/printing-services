@@ -82,7 +82,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                                         </div>
                                         <div class="mb-3">
                                             <label for="add-order" class="form-label">Order:<span style="color:red">&nbsp*</span></label>
-                                            <select class="form-control" id="add-order" name="add-order" onchange="toggleInputs()">
+                                            <select class="form-control" id="add-order" name="add-order" onchange="toggleInputs()" required>
                                                 <option value="" selected disabled>Select Order</option>
                                                 <option value="Plate Number">Plate Number</option>
                                                 <option value="Tarpaulin">Tarpaulin</option>
@@ -220,6 +220,15 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                                             <label for="commonQuantity" class="form-label">Quantity:<span style="color:red">&nbsp*</span></label>
                                             <input type="number" class="form-control" id="commonQuantity" name="commonQuantity" placeholder="Type quantity">
                                         </div> 
+                                        <div class="mb-3">
+                                            <label for="add-payment" class="form-label">Payment:<span style="color:red">&nbsp*</span></label>
+                                            <select class="form-control" id="add-payment" name="add-payment" required>
+                                                <option value="" selected disabled>Select Payment</option>
+                                                <option value="Paid">Paid</option>
+                                                <option value="Not Paid">Not Paid</option>
+                                                <option value="Half Paid">Half Paid</option>
+                                            </select>
+                                        </div>
                                         <div class="mb-3" id="costItemInput" style="display:none">
                                             <label for="costItem" class="form-label">Price:<span style="color:red">&nbsp*</span></label>
                                             <input type="number" class="form-control" id="costItem" name="costItem" placeholder="Type the price of an item">
@@ -347,6 +356,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                                             <div class="custom-control custom-radio custom-control-inline">
                                                 <label class="custom-control-label fs-5 px-2 fw-bold" for="view-client">Client:</label>
                                                 <label class="custom-control-label fs-5 border-label" id="view-client" name="view-client"></label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <label class="custom-control-label fs-5 px-2 fw-bold" for="view-payment">Payment:</label>
+                                                <label class="custom-control-label fs-5 border-label" id="view-payment" name="view-payment"></label>
                                             </div>
                                             <hr>
                                             <div class="custom-control custom-radio custom-control-inline">
@@ -604,6 +617,15 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                                             </select>
                                         </div>
                                         <div class="mb-3">
+                                            <label for="editpayment" class="form-label">Payment:<span style="color:red">&nbsp*</span></label>
+                                            <select class="form-control" id="editpayment" name="editpayment" required>
+                                                <option value="" selected disabled>Select Payment</option>
+                                                <option value="Paid">Paid</option>
+                                                <option value="Not Paid">Not Paid</option>
+                                                <option value="Half Paid">Half Paid</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
                                             <label for="edittypePrintEmbro" class="form-label" id="edittypePrintEmbroLabel">Type of Print/Embro:<span style="color:red">&nbsp*</span></label>
                                             <select class="form-control" id="edittypePrintEmbro" name="edittypePrintEmbro">
                                                 <option value="" selected disabled>Select the type of Print/Embro</option>
@@ -701,7 +723,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                     <!-- End of Add Order Modal -->
                 </div> 
             </div>
-            <!-- Navigation bar -->
+            <!-- Footer bar -->
             <?php include('../includes/footer.php');?>
         </div>
     </div> 

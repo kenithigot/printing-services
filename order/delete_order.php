@@ -19,6 +19,12 @@ if(isset($_POST['id'])){
     $stmt_inventory->close();
 
     // Delete order
+    $stmt_delete_sale = $conn->prepare("DELETE FROM ktees_product_sale WHERE id = ?");
+    $stmt_delete_sale->bind_param("i", $orderId);
+    $stmt_delete_sale->execute();
+    $stmt_delete_sale->close();
+
+    // Delete order
     $stmt_delete = $conn->prepare("DELETE FROM ktees_order WHERE id = ?");
     $stmt_delete->bind_param("i", $orderId);
 
