@@ -501,6 +501,7 @@ function toggleInputs() {
     var productIdInput = $("#productIdInput");
     var platenumPriceInput = $("#platenumPriceInput");
     var mugpriceInput = $("#mugpriceInput");
+    var mugQuantityInput = $("#mugQuantityInput");
     
     // Hide/show inputs based on selected order type
     if (jobRole === "T-shirt Printing") {
@@ -523,6 +524,7 @@ function toggleInputs() {
         TarpLayoutInput.hide();
         productIdInput.hide();
         mugpriceInput.hide();
+        mugQuantityInput.hide();
     } else if (jobRole === "Tarpaulin") {
         tshirtPrintingInputs.hide();
         platenumberinput.hide();
@@ -547,12 +549,13 @@ function toggleInputs() {
         tshirtPrintingInputs.hide();
         platenumberinput.hide();
         tarpaulinInput.hide();
-        commonQuantityInput.show();
+        commonQuantityInput.hide();
         costItemInput.hide();
         productIdInput.hide();
         TarpLayoutInput.hide();
         platenumPriceInput.hide();
         mugpriceInput.show();
+        mugQuantityInput.show();
     } else if (jobRole === "Sticker") {
         tshirtPrintingInputs.hide();
         platenumberinput.hide();
@@ -575,6 +578,7 @@ function toggleInputs() {
         platenumPriceInput.hide();
         mugpriceInput.hide();
         costItemInput.hide();
+        mugQuantityInput.hide();
     }
 }
 

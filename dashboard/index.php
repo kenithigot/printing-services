@@ -342,6 +342,20 @@
                 </thead>
             </table> 
         </div>
+        <div class="table-orders mt-4">
+            <h1>History Details</h1>
+            <table id="order-table" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Cost</th>                 
+                        <th>Payment</th>
+                        <th>Order</th>                          
+                        <th>Date Ordered</th>
+                    </tr>
+                </thead>
+            </table> 
+        </div>
         <!-- Footer bar -->
         <?php include('../includes/footer.php');?>
     </div>  

@@ -219,6 +219,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                                         <div class="mb-3" id="commonQuantityInput" style="display: none;">
                                             <label for="commonQuantity" class="form-label">Quantity:<span style="color:red">&nbsp*</span></label>
                                             <input type="number" class="form-control" id="commonQuantity" name="commonQuantity" placeholder="Type quantity">
+                                        </div>
+                                        <div class="mb-3" id="mugQuantityInput" style="display:none">
+                                            <label for="mugQuantity" class="form-label">Mug Quantity:<span style="color:red">&nbsp*</span></label>
+                                            <input type="number" class="form-control" id="mugQuantity" name="mugQuantity" placeholder="Type quantity">
                                         </div> 
                                         <div class="mb-3">
                                             <label for="add-payment" class="form-label">Payment:<span style="color:red">&nbsp*</span></label>

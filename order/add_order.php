@@ -24,6 +24,7 @@ if(isset($_POST["saveOrder"])){
     $xxxl = (int) mysqli_real_escape_string($conn, $_POST["3xlarge"]);
     $xxxxl = (int) mysqli_real_escape_string($conn, $_POST["4xlarge"]);
     $commonQuantity = (int) mysqli_real_escape_string($conn, $_POST["commonQuantity"]);
+    $mugQuantity = (int) mysqli_real_escape_string($conn, $_POST["mugQuantity"]);
     $dateOrdered = mysqli_real_escape_string($conn, $_POST["add-dateOrdered"]);
     $staffName = mysqli_real_escape_string($conn, $_POST["add-staffName"]);
     $deadline = mysqli_real_escape_string($conn, $_POST["add-dateDeadline"]);
@@ -260,6 +261,29 @@ if(isset($_POST["saveOrder"])){
         $productPrice_xxxl = 460 * $xxxl;
         $productPrice_xxxxl = 490 * $xxxxl;
     }
+
+    // Check if the quantity ordered exceeds the available quantity of mugs in ktees_inventory
+    $stmt_check_mug = $conn->prepare("SELECT mugQuantity FROM ktees_inventory WHERE id = ?"); 
+    $stmt_check_mug->bind_param("s", $mugQuantity);
+    $stmt_check_mug->execute();
+    $stmt_check_mug->bind_result($availableMugQuantity);
+    $stmt_check_mug->fetch();
+    $stmt_check_mug->close();
+
+    if ($mugQuantity > $availableMugQuantity) {
+        $messagePromptMug = "The requested quantity of mugs exceeds the available stock.";
+
+        echo "<script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Can\'t Add Order',
+                html: '$messagePromptMug',
+            }).then(() => {
+                window.location.href = '../order/';
+            });
+        </script>";
+        exit;
+    }
     //Calculate Tshirt sizes price
     $productPrice = $productPrice_xs + $productPrice_s + $productPrice_m + $productPrice_l + $productPrice_xl + $productPrice_xxl + $productPrice_xxxl + $productPrice_xxxxl;
 
@@ -280,7 +304,7 @@ if(isset($_POST["saveOrder"])){
 
     $mugPrintingCost = 0;
     if ($mugprice != "") {
-        $mugPrintingCost = $mugPrintingPrice[$mugprice] * $commonQuantity;
+        $mugPrintingCost = $mugPrintingPrice[$mugprice] * $mugQuantity;
     }
 
     $promoPrice = $platenumPrice . $mugprice;
@@ -291,7 +315,7 @@ if(isset($_POST["saveOrder"])){
     $formattedTotalPrice = number_format($totalPrice, 2, '.', ',');
     
     // Calculate total quantity
-    $quantity = $xs + $s + $m + $l + $xl + $xxl + $xxxl + $xxxxl + $commonQuantity;
+    $quantity = $xs + $s + $m + $l + $xl + $xxl + $xxxl + $xxxxl + $mugQuantity + $commonQuantity;
 
     // Deduct quantity from ktees_inventory
     $stmt_inventory = $conn->prepare("UPDATE ktees_inventory SET xs = xs - ?, s = s - ?, m = m - ?, l = l - ?, xl = xl - ?, xxl = xxl - ?, xxxl = xxxl - ?, xxxxl = xxxxl - ? WHERE printingDetail = ?"); 

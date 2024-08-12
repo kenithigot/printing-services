@@ -34,3 +34,29 @@ $(document).ready(function() {
         });
     });
 });
+
+$(document).ready(function() {
+    $('#mugQuantityInput').on('change', function() {
+        var newQuantity = $(this).val();
+
+        $.ajax({
+            url: 'mug-save_data.php',
+            type: 'POST',
+            data: { newQuantity: newQuantity },
+            success: function(response) {
+                if (response === "success") {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Data Saved',
+                        text: 'Your changes have been saved successfully!',
+                        }).then(function() {
+                        // Redirect to the next page
+                        window.location.href = '../inventory/';
+                    });
+                } else {
+                    alert("Error updating mug quantity.");
+                }
+            }
+        });
+    });
+});
