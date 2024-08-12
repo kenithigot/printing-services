@@ -263,8 +263,7 @@ if(isset($_POST["saveOrder"])){
     }
 
     // Check if the quantity ordered exceeds the available quantity of mugs in ktees_inventory
-    $stmt_check_mug = $conn->prepare("SELECT mugQuantity FROM ktees_inventory WHERE id = ?"); 
-    $stmt_check_mug->bind_param("s", $mugQuantity);
+    $stmt_check_mug = $conn->prepare("SELECT mugQuantity FROM ktees_inventory ORDER BY id ASC LIMIT 1"); 
     $stmt_check_mug->execute();
     $stmt_check_mug->bind_result($availableMugQuantity);
     $stmt_check_mug->fetch();
@@ -342,8 +341,8 @@ if(isset($_POST["saveOrder"])){
                 title: 'Success',
                 text: 'New Order created successfully',
                 }).then(() => {
-                    window.location.href = '../order/';
-                });
+                window.location.href = '../order/';
+            });
         </script>";
 } else {
     echo "Error: " . $stmt->error;

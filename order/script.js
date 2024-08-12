@@ -524,7 +524,6 @@ function toggleInputs() {
         TarpLayoutInput.hide();
         productIdInput.hide();
         mugpriceInput.hide();
-        mugQuantityInput.hide();
     } else if (jobRole === "Tarpaulin") {
         tshirtPrintingInputs.hide();
         platenumberinput.hide();
