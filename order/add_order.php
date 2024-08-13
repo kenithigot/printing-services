@@ -316,6 +316,12 @@ if(isset($_POST["saveOrder"])){
     // Calculate total quantity
     $quantity = $xs + $s + $m + $l + $xl + $xxl + $xxxl + $xxxxl + $mugQuantity + $commonQuantity;
 
+    // Deduct Mug quantity from ktees_inventory
+    $stmt_mug_inventory = $conn->prepare("UPDATE ktees_inventory SET mugQuantity = mugQuantity - ? ORDER BY id ASC LIMIT 1");
+    $stmt_mug_inventory->bind_param('s', $mugQuantity);
+    $stmt_mug_inventory->execute();
+    $stmt_mug_inventory->close();
+
     // Deduct quantity from ktees_inventory
     $stmt_inventory = $conn->prepare("UPDATE ktees_inventory SET xs = xs - ?, s = s - ?, m = m - ?, l = l - ?, xl = xl - ?, xxl = xxl - ?, xxxl = xxxl - ?, xxxxl = xxxxl - ? WHERE printingDetail = ?"); 
     $stmt_inventory->bind_param("iiiiiiiis", $xs, $s, $m, $l, $xl, $xxl, $xxxl, $xxxxl, $printingDetail);
