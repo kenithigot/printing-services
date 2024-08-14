@@ -336,6 +336,17 @@ if(isset($_POST["saveOrder"])){
     $stmt_sales->execute();
     $stmt_sales->close();
 
+// Set the timezone to Pacific Standard Time (GMT+8)
+    date_default_timezone_set('Asia/Manila'); // Manila is in the GMT+8 timezone
+    // Timestamp for transact
+    $currentTime = date('H:i:s'); // For timeTransact
+
+    // Insert into ktees_transact history
+    $stmt_sales = $conn->prepare("INSERT INTO ktees_transact_history (productOrder, dateTransact, staffName, timeTransact) VALUES (?, ?, ?, ?)");
+    $stmt_sales->bind_param("ssss", $order, $dateOrdered, $staffName, $currentTime);
+    $stmt_sales->execute();
+    $stmt_sales->close();
+
     // Prepare and bind parameters
     $stmt = $conn->prepare("INSERT INTO ktees_order (client, type_order, payment, customerId, plate_number, productPromo, tarp_size, tarpLayout, type_print, printingDetail, x_small, small, medium, large, x_large, xx_large, xxx_large, xxxx_large, quantity, date_ordered, staff, due_date, order_status, productPrice) 
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");

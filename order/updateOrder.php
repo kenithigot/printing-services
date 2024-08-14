@@ -7,6 +7,7 @@ if (isset($_POST["id"])) {
     $edittarpaulinSize = isset($_POST["edittarpaulinSize"]) ? mysqli_real_escape_string($conn, $_POST["edittarpaulinSize"]) : "";
     $editlayoutTarp = isset($_POST["editlayoutTarp"]) ? mysqli_real_escape_string($conn, $_POST["editlayoutTarp"]) : "";
     $commonQuantityUnit = $_POST['editcommonQuantity'];
+    $mugQuantity = $_POST['editmugQuantity'];
     $editmugprice = isset($_POST['editmugprice']) ? $_POST['editmugprice'] : '';
     $printingDetail = isset($_POST['editprintingDetail']) ? $_POST['editprintingDetail'] : '';
     $xs = isset($_POST['editxsmall']) ? (int)$_POST['editxsmall'] : 0;
@@ -21,10 +22,10 @@ if (isset($_POST["id"])) {
     $editproductId = isset($_POST["editproductId"]) ? mysqli_real_escape_string($conn, $_POST["editproductId"]) : "";
 
     // Get the old quantities from the database
-    $stmt_old = $conn->prepare("SELECT x_small, small, medium, large, x_large, xx_large, xxx_large, xxxx_large FROM ktees_order WHERE id = ?");
+    $stmt_old = $conn->prepare("SELECT x_small, small, medium, large, x_large, xx_large, xxx_large, xxxx_large, quantity FROM ktees_order WHERE id = ?");
     $stmt_old->bind_param("i", $id);
     $stmt_old->execute();
-    $stmt_old->bind_result($old_xs, $old_s, $old_m, $old_l, $old_xl, $old_xxl, $old_xxxl, $old_xxxxl);
+    $stmt_old->bind_result($old_xs, $old_s, $old_m, $old_l, $old_xl, $old_xxl, $old_xxxl, $old_xxxxl, $oldmugQuantity);
     $stmt_old->fetch();
     $stmt_old->close();
 
@@ -36,6 +37,7 @@ if (isset($_POST["id"])) {
     $diff_xxl = 0;
     $diff_xxxl = 0;
     $diff_xxxxl = 0;
+    $diff_mug = 0;
 
     // Calculate the difference between old and new quantities
     $diff_xs = $xs - $old_xs;
@@ -46,6 +48,7 @@ if (isset($_POST["id"])) {
     $diff_xxl = $xxl - $old_xxl;
     $diff_xxxl = $xxxl - $old_xxxl;
     $diff_xxxxl = $xxxxl - $old_xxxxl;
+    $diff_mug = $mugQuantity - $oldmugQuantity;
 
     // Specific prices per tarpaulin size and layout
     $tarpaulinPrices = [
@@ -180,7 +183,7 @@ if (isset($_POST["id"])) {
     $mugPrintingCost = 0;
     if (array_key_exists($editmugprice, $mugPrintingPrice)){
         $mugPrices = $mugPrintingPrice[$editmugprice];
-        $mugPrintingCost = $mugPrices[0] * $commonQuantityUnit;
+        $mugPrintingCost = $mugPrices[0] * $mugQuantity;
     }
 
     //Id Printing Computation
@@ -202,11 +205,11 @@ if (isset($_POST["id"])) {
     // Format the product price
     $productPrice = number_format($productTypeCost, 2, '.', ',');
     // Calculate total quantity based on sizes
-    $total_quantity = $diff_xs + $diff_s + $diff_m + $diff_l + $diff_xl + $diff_xxl + $diff_xxxl + $diff_xxxxl + $commonQuantityUnit;
+    $total_quantity = $diff_xs + $diff_s + $diff_m + $diff_l + $diff_xl + $diff_xxl + $diff_xxxl + $diff_xxxxl + $commonQuantityUnit + $diff_mug;
 
     // Check if the quantity ordered exceeds the available quantity in ktees_inventory
     if ($xs > 0 || $s > 0 || $m > 0 || $l > 0 || $xl > 0 || $xxl > 0 || $xxxl > 0 || $xxxxl > 0) {
-        $stmt_check = $conn->prepare("SELECT xs, s, m, l, xl, xxl, xxxl, xxxxl FROM ktees_inventory WHERE printingDetail = ?");
+        $stmt_check = $conn->prepare("SELECT xs, s, m, l, xl, xxl, xxxl, xxxxl FROM ktees_inventoryshirt WHERE printingDetail = ?");
         $stmt_check->bind_param("s", $printingDetail);
         $stmt_check->execute();
         $stmt_check->bind_result($available_xs, $available_s, $available_m, $available_l, $available_xl, $available_xxl, $available_xxxl, $available_xxxxl);
@@ -231,6 +234,25 @@ if (isset($_POST["id"])) {
             exit;
         }
     }
+
+    
+    // Check if the quantity ordered exceeds the available quantity of mugs
+    $stmt_check_mug = $conn->prepare("SELECT mugQuantity FROM ktees_inventoryotherproduct ORDER BY id ASC LIMIT 1"); 
+    $stmt_check_mug->execute();
+    $stmt_check_mug->bind_result($availableMugQuantity);
+    $stmt_check_mug->fetch();
+    $stmt_check_mug->close();
+
+    if($mugQuantity > $availableMugQuantity){
+        if(!empty($availableMugQuantity)){
+            $messagePromptMug = "The requested quantity of mugs exceeds the available stock.";
+            header('Content-Type: application/json');
+            echo json_encode(['message' => $messagePromptMug]);
+            exit;
+        }
+    }    
+    
+    
 
     // Update the order
     $stmt = $conn->prepare("UPDATE ktees_order SET 
@@ -292,37 +314,52 @@ if (isset($_POST["id"])) {
 
     // Execute the prepared statement
     if ($stmt->execute()) {
-        // Update inventory for only the differences in quantities
-        if ($diff_xs != 0 || $diff_s != 0 || $diff_m != 0 || $diff_l != 0 || $diff_xl != 0 || $diff_xxl != 0 || $diff_xxxl != 0 || $diff_xxxxl != 0) {
-            $stmt_inventory = $conn->prepare("UPDATE ktees_inventory SET 
-                xs = xs - ?, 
-                s = s - ?, 
-                m = m - ?, 
-                l = l - ?, 
-                xl = xl - ?, 
-                xxl = xxl - ?, 
-                xxxl = xxxl - ?, 
-                xxxxl = xxxxl - ? 
-                WHERE printingDetail = ?");
 
-            // Bind parameters to the prepared statement
-            $stmt_inventory->bind_param("iiiiiiiis", 
-                $diff_xs, 
-                $diff_s, 
-                $diff_m, 
-                $diff_l, 
-                $diff_xl, 
-                $diff_xxl, 
-                $diff_xxxl, 
-                $diff_xxxxl, 
-                $_POST['editprintingDetail']); // <- Change $printingDetail to $_POST['editprintingDetail']
+        // Check if it's a Mug Printing order
+        if (strtolower($printingDetail)) {
+            // Update inventory for only the differences in quantities
+            if ($diff_xs != 0 || $diff_s != 0 || $diff_m != 0 || $diff_l != 0 || $diff_xl != 0 || $diff_xxl != 0 || $diff_xxxl != 0 || $diff_xxxxl != 0) {
+                $stmt_inventory = $conn->prepare("UPDATE ktees_inventoryshirt SET 
+                    xs = xs - ?, 
+                    s = s - ?, 
+                    m = m - ?, 
+                    l = l - ?, 
+                    xl = xl - ?, 
+                    xxl = xxl - ?, 
+                    xxxl = xxxl - ?, 
+                    xxxxl = xxxxl - ? 
+                    WHERE printingDetail = ?");
 
-            // Execute the prepared statement for inventory update
-            $stmt_inventory->execute();
+                // Bind parameters to the prepared statement
+                $stmt_inventory->bind_param("iiiiiiiis", 
+                    $diff_xs, 
+                    $diff_s, 
+                    $diff_m, 
+                    $diff_l, 
+                    $diff_xl, 
+                    $diff_xxl, 
+                    $diff_xxxl, 
+                    $diff_xxxxl, 
+                    $_POST['editprintingDetail']); // <- Change $printingDetail to $_POST['editprintingDetail']
 
-            // Close the prepared statement for inventory update
-            $stmt_inventory->close();
-            
+                // Execute the prepared statement for inventory update
+                $stmt_inventory->execute();
+
+                // Close the prepared statement for inventory update
+                $stmt_inventory->close();
+                
+            }
+        }else{
+            $orderIdMug = 1;
+
+            // Restore the mugQuantity back to the inventory
+            $stmt_mug_inventory = $conn->prepare("UPDATE ktees_inventoryotherproduct SET 
+                mugQuantity = mugQuantity - ? 
+                WHERE id = ?");
+            $stmt_mug_inventory->bind_param('ii',
+                $diff_mug, $orderIdMug);
+            $stmt_mug_inventory->execute();
+            $stmt_mug_inventory->close();
         }
         // Update the corresponding record in the ktees_product_sale table
         $stmt_sale = $conn->prepare("UPDATE ktees_product_sale SET 

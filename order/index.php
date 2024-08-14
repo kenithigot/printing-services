@@ -528,6 +528,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                                             <input type="number" class="form-control" id="editcommonQuantity" name="editcommonQuantity" placeholder="Type quantity">
                                         </div>
                                         <div class="mb-3">
+                                            <label for="editmugQuantity" class="form-label" id="editmugQuantityLabel">Mug Quantity:<span style="color:red">&nbsp*</span></label>
+                                            <input type="number" class="form-control" id="editmugQuantity" name="editmugQuantity" placeholder="Type quantity">
+                                        </div>
+                                        <div class="mb-3">
                                             <label for="edittarpaulinSize" class="form-label" id="edittarpaulinSizeLabel">Tarpaulin Size:<span style="color:red">&nbsp*</span></label>
                                             <select class="form-control" id="edittarpaulinSize" name="tarpaulinSize" >
                                                 <option value="" selected disabled>Select the Size of Tarpaulin</option>

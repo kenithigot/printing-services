@@ -22,3 +22,28 @@ $(document).ready(function () {
         "order": [[0, 'asc']]
     });
 });
+
+$(document).ready(function () {
+    var table = $('#history-table').DataTable({
+        "searching": true,
+        "ajax": {
+            "url": "transactHistory.php",
+            "type": "POST"
+        },
+        "columns": [
+            { 
+                "data": null,
+                "render": function (data, type, row, meta) {
+                    // 'meta.row' contains the row index.
+                    // Increment the row index and return it as the order number.
+                    return meta.row + 1;
+                }
+            },
+            { "data": "timeTransact" },
+            { "data": "dateTransact" },
+            { "data": "staffName" },
+            { "data": "productOrder" },
+        ],
+        "order": [[0, 'asc']]
+    });
+});

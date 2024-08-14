@@ -274,6 +274,7 @@ $(document).ready(function () {
                 $('#editclientName').val(response.client); 
                 $('#editorder').val(response.type_order);
                 $('#editcommonQuantity').val(response.quantity);
+                $('#editmugQuantity').val(response.quantity);
                 $('#editplate_number').val(response.plate_number);
                 $('#editplatenumPrice').val(response.productPromo);
                 $('#edittarpaulinSize').val(response.tarp_size);
@@ -301,13 +302,13 @@ $(document).ready(function () {
                     $('#edittypePrintEmbro, #editxsmall, #editsmall, #editmedium, #editlarge, #editxlarge, #edit2xlarge, #edit3xlarge, #edit4xlarge, #editprintingDetail').show();
                     $('#edittypePrintEmbroLabel, #editxsmallLabel, #editsmallLabel, #editmediumLabel, #editlargeLabel, #editxlargeLabel, #edit2xlargeLabel, #edit3xlargeLabel, #edit4xlargeLabel, #editprintingDetailLabel').show();  
                     
-                    $('#editcommonQuantity').hide();
-                    $('#editcommonQuantityLabel').hide();
+                    $('#editcommonQuantity, #editmugQuantity').hide();
+                    $('#editcommonQuantityLabel, #editmugQuantityLabel').hide();
                 } else {
                     $('#edittypePrintEmbro, #editxsmall, #editsmall, #editmedium, #editlarge, #editxlarge, #edit2xlarge, #edit3xlarge, #edit4xlarge, #editprintingDetail').hide();
                     $('#edittypePrintEmbroLabel, #editxsmallLabel, #editsmallLabel, #editmediumLabel, #editlargeLabel, #editxlargeLabel, #edit2xlargeLabel, #edit3xlargeLabel, #edit4xlargeLabel, #editprintingDetailLabel').hide();
-                    $('#editcommonQuantity').show();
-                    $('#editcommonQuantityLabel').show()
+                    $('#editmugQuantity').show();
+                    $('#editmugQuantityLabel').show()
                 }
     
                 //Show/Hide Plate Number Related
@@ -317,6 +318,9 @@ $(document).ready(function () {
 
                     $('#editcommonQuantity').show();
                     $('#editcommonQuantityLabel').show();
+
+                    $('#editmugQuantity').hide();
+                    $('#editmugQuantityLabel').hide();
                     
                 } else {
                     $('#editplate_number, #editplatenumPrice').hide();
@@ -327,6 +331,9 @@ $(document).ready(function () {
                 if (response.type_order == 'ID') {
                     $('#editproductId').show();
                     $('#editproductIdLabel').show();
+
+                    $('#editmugQuantity').hide();
+                    $('#editmugQuantityLabel').hide();
                     
                 } else {
                     $('#editproductId').hide();
@@ -337,6 +344,9 @@ $(document).ready(function () {
                 if (response.type_order == 'Tarpaulin') {
                     $('#edittarpaulinSize, #editlayoutTarp').show();
                     $('#edittarpaulinSizeLabel, #editlayoutTarpLabel').show();
+
+                    $('#editmugQuantity').hide();
+                    $('#editmugQuantityLabel').hide();
                     
                 } else {
                     $('#edittarpaulinSize, #editlayoutTarp').hide();
@@ -347,6 +357,9 @@ $(document).ready(function () {
                 if (response.type_order == 'Mug printing') {
                     $('#editmugprice').show();
                     $('#editmugpriceLabel').show();
+
+                    $('#editcommonQuantity').hide();
+                    $('#editcommonQuantityLabel').hide();
                     
                 } else {
                     $('#editmugprice').hide();
@@ -381,6 +394,7 @@ $(document).ready(function () {
             editdateDeadline: $('#editdateDeadline').val(),
             editorderStatus: $('#editorderStatus').val(),
             editcommonQuantity: $('#editcommonQuantity').val(),
+            editmugQuantity: $('#editmugQuantity').val(),
             editplate_number: $('#editplate_number').val(),
             editplatenumPrice: $('#editplatenumPrice').val(),
             edittarpaulinSize: $('#edittarpaulinSize').val(),
