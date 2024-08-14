@@ -129,7 +129,7 @@ if(isset($_POST["saveOrder"])){
     $printingDetailShort = $printingDetailArray[0] . " " . end($printingDetailArray) . " " . prev($printingDetailArray);
 
     // Check if the quantity ordered exceeds the available quantity in ktees_inventory
-    $stmt_check = $conn->prepare("SELECT xs, s, m, l, xl, xxl, xxxl, xxxxl FROM ktees_inventory WHERE printingDetail = ?"); 
+    $stmt_check = $conn->prepare("SELECT xs, s, m, l, xl, xxl, xxxl, xxxxl FROM ktees_inventoryshirt WHERE printingDetail = ?"); 
     $stmt_check->bind_param("s", $printingDetail);
     $stmt_check->execute();
     $stmt_check->bind_result($available_xs, $available_s, $available_m, $available_l, $available_xl, $available_xxl, $available_xxxl, $available_xxxxl);
@@ -263,7 +263,7 @@ if(isset($_POST["saveOrder"])){
     }
 
     // Check if the quantity ordered exceeds the available quantity of mugs in ktees_inventory
-    $stmt_check_mug = $conn->prepare("SELECT mugQuantity FROM ktees_inventory ORDER BY id ASC LIMIT 1"); 
+    $stmt_check_mug = $conn->prepare("SELECT mugQuantity FROM ktees_inventoryotherproduct ORDER BY id ASC LIMIT 1"); 
     $stmt_check_mug->execute();
     $stmt_check_mug->bind_result($availableMugQuantity);
     $stmt_check_mug->fetch();
@@ -317,13 +317,15 @@ if(isset($_POST["saveOrder"])){
     $quantity = $xs + $s + $m + $l + $xl + $xxl + $xxxl + $xxxxl + $mugQuantity + $commonQuantity;
 
     // Deduct Mug quantity from ktees_inventory
-    $stmt_mug_inventory = $conn->prepare("UPDATE ktees_inventory SET mugQuantity = mugQuantity - ? ORDER BY id ASC LIMIT 1");
-    $stmt_mug_inventory->bind_param('s', $mugQuantity);
+    $id = 1; // Replace with the actual ID you need to use
+    $stmt_mug_inventory = $conn->prepare("UPDATE ktees_inventoryotherproduct SET mugQuantity = mugQuantity - ? WHERE id = ?");
+    $stmt_mug_inventory->bind_param('ii', $mugQuantity, $id);
     $stmt_mug_inventory->execute();
     $stmt_mug_inventory->close();
 
+
     // Deduct quantity from ktees_inventory
-    $stmt_inventory = $conn->prepare("UPDATE ktees_inventory SET xs = xs - ?, s = s - ?, m = m - ?, l = l - ?, xl = xl - ?, xxl = xxl - ?, xxxl = xxxl - ?, xxxxl = xxxxl - ? WHERE printingDetail = ?"); 
+    $stmt_inventory = $conn->prepare("UPDATE ktees_inventoryshirt SET xs = xs - ?, s = s - ?, m = m - ?, l = l - ?, xl = xl - ?, xxl = xxl - ?, xxxl = xxxl - ?, xxxxl = xxxxl - ? WHERE printingDetail = ?"); 
     $stmt_inventory->bind_param("iiiiiiiis", $xs, $s, $m, $l, $xl, $xxl, $xxxl, $xxxxl, $printingDetail);
     $stmt_inventory->execute();
     $stmt_inventory->close();

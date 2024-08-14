@@ -15,7 +15,7 @@
     $inventory = [];
 
     foreach ($categories as $category) {
-        $sql = "SELECT xs, s, m, l, xl, xxl, xxxl, xxxxl FROM ktees_inventory WHERE printingDetail = ?";
+        $sql = "SELECT xs, s, m, l, xl, xxl, xxxl, xxxxl FROM ktees_inventoryshirt WHERE printingDetail = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $category);
         $stmt->execute();
@@ -386,7 +386,7 @@
                 <?php
                     include('../authentication.php');
 
-                    $query = "SELECT mugQuantity FROM ktees_inventory WHERE id = 1";
+                    $query = "SELECT mugQuantity FROM ktees_inventoryotherproduct WHERE id = 1";
                     $result = $conn->query($query);
 
                     if ($result && $result->num_rows > 0) { 

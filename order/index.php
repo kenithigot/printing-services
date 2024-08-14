@@ -300,7 +300,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                                         </div>
                                         <div class="mb-3">
                                             <label for="add-dateOrdered" class="form-label">Date Ordered:<span style="color:red">&nbsp*</span></label>
-                                            <input type="text" class="form-control" id="add-dateOrdered" name="add-dateOrdered" placeholder="Select Ordered Date">
+                                            <input type="text" class="form-control" id="add-dateOrdered" name="add-dateOrdered" placeholder="Select Ordered Date"required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="add-staffName" class="form-label">Staff Name:<span style="color:red">&nbsp*</span></label>

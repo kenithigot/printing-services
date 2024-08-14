@@ -214,8 +214,8 @@ $(document).ready(function () {
         });
     });
 
-     // Delete Order Deletion 
-     $(document).on('click', '.deleteOrder', function (e) {
+    // Delete Order Deletion 
+    $(document).on('click', '.deleteOrder', function (e) {
         e.preventDefault();
         var id = $(this).data('id');
 
